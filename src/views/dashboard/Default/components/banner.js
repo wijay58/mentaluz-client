@@ -27,10 +27,10 @@ const Banner = () => {
     const { item } = props;
     const { image, description } = item;
     return (
-      <Card sx={{ boxShadow: theme.customShadows.primary, marginTop: '12px' }}>
+      <Card sx={{ boxShadow: theme.customShadows.primary }}>
         <CardMedia image={image} title="Card 3">
-          <CardContent sx={{ minHeight: 300, display: 'flex', justifyContent: 'flex-end', alignItems: 'end' }}>
-            <CardActions>
+          <CardContent sx={{ minHeight: 370, display: 'flex', justifyContent: 'flex-end', alignItems: 'end' }}>
+            <CardActions sx={{ alignSelf: 'flex-end' }}>
               <Button
                 variant="contained"
                 color="secondary"

@@ -15,6 +15,8 @@ import useAuth from 'hooks/useAuth';
 import Banner from './components/banner';
 import Agents from './components/agents';
 import Tasks from './components/tasks';
+import BusinessGrowth from './components/businessGrowth';
+import StatChart from './components/statChart';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -29,7 +31,7 @@ const Dashboard = () => {
     <Grid container spacing={gridSpacing}>
       <Grid item xs={12}>
         {user ?
-          <Typography variant="h2">
+          <Typography sx={{ marginBottom: '12px' }} variant="h2">
             Welcome, {user.firstname}
           </Typography> : <></>
         }
@@ -44,11 +46,11 @@ const Dashboard = () => {
           <Grid item lg={3} md={12} sm={12} xs={12}>
             <Grid container spacing={gridSpacing}>
               <Grid item sm={6} xs={12} md={6} lg={12}>
-                <TotalIncomeDarkCard isLoading={isLoading} />
+                <BusinessGrowth />
               </Grid>
-              <Grid item sm={6} xs={12} md={6} lg={12}>
-                <TotalIncomeLightCard isLoading={isLoading} />
-              </Grid>
+              {/* <Grid item sm={6} xs={12} md={6} lg={12}>
+                <TotalGrowthBarChart />
+              </Grid> */}
             </Grid>
           </Grid>
         </Grid>
@@ -67,7 +69,7 @@ const Dashboard = () => {
             <Tasks />
           </Grid>
           <Grid item xs={12} md={4} lg={3}>
-            <PopularCard isLoading={isLoading} />
+            <StatChart />
           </Grid>
         </Grid>
       </Grid>
