@@ -3,7 +3,7 @@ import Carousel from 'react-material-ui-carousel';
 import Card1 from 'assets/images/cards/card-1.jpg';
 import Card3 from 'assets/images/cards/card-3.jpg';
 import Card2 from 'assets/images/cards/card-2.jpg';
-import { Card, CardMedia, CardContent, Grid, Typography, Button } from "@mui/material";
+import { Card, CardMedia, CardContent, Grid, Typography, Button, Box } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import ReactCardFlip from 'react-card-flip';
 
@@ -76,39 +76,43 @@ const Agents = () => {
 
     return (
       <>
-        <Grid style={{ display: 'flex', gap: '15px' }}>
-          {agents.map((agent, i) => (
-            <ReactCardFlip isFlipped={flipped.has(i)} flipDirection="horizontal">
-              <Card onMouseOver={handleClick(i)} sx={{ display: 'flex', flexDirection: 'column', boxShadow: theme.customShadows.primary, marginBottom: '12px' }}>
-                <CardMedia component="img" sx={{ minHeight: '250px' }} image={agent.image} />
-                <Grid container spacing={1}>
-                  <Grid xs={12} sx={{ padding: '0 !important' }} item>
-                    <Typography sx={{ paddingX: '20px', paddingY: '13px' }} variant="subtitle1">{agent.name}</Typography>
-                    <Typography sx={{ paddingX: '20px', marginTop: '-13px', marginBottom: '5px' }} variant="subtitle2">
-                      AI Agent
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-              <Card sx={{ maxWidth: '290px', minWidth: '290px', display: 'flex', flexDirection: 'column', boxShadow: theme.customShadows.primary, marginBottom: '12px' }} onMouseLeave={handleClick(i)}>
-                <CardContent sx={{ minHeight: '305px' }}>
-                  <Grid container spacing={1}>
-                    <Grid xs={12} item>
-                      <Typography variant="h3" color='secondary.dark' sx={{ marginBottom: '8px', textAlign: 'center' }}>{agent.name}</Typography>
-                      <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                        in reprehenderit in voluptate
-                      </Typography>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid Grid container spacing={2}>
+            {agents.map((agent, i) => (
+              <Grid item xs={3}>
+                <ReactCardFlip isFlipped={flipped.has(i)} flipDirection="horizontal">
+                  <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseOver={handleClick(i)}>
+                    <CardMedia component="img" sx={{ minHeight: '20rem' }} image={agent.image} />
+                    <Grid container spacing={1}>
+                      <Grid xs={12} sx={{ padding: '0 !important' }} item>
+                        <Typography sx={{ paddingX: '20px', paddingY: '13px' }} variant="subtitle1">{agent.name}</Typography>
+                        <Typography sx={{ paddingX: '20px', marginTop: '-13px', marginBottom: '5px' }} variant="subtitle2">
+                          AI Agent
+                        </Typography>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </ReactCardFlip>
-          ))}
-        </Grid>
+                  </Card>
+                  <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseLeave={handleClick(i)}>
+                    <CardContent sx={{ minHeight: '23.5rem', maxHeight: '23.5rem', overflow: 'auto' }}>
+                      <Grid container spacing={1}>
+                        <Grid xs={12} item>
+                          <Typography variant="h3" color='secondary.dark' sx={{ marginBottom: '8px', textAlign: 'center' }}>{agent.name}</Typography>
+                          <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore magna
+                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                            in reprehenderit in voluptate
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+                  </Card>
+                </ReactCardFlip>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </>
     );
   }
