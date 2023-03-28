@@ -35,42 +35,38 @@ const Dashboard = () => {
             Welcome, {user.firstname}
           </Typography> : <></>
         }
-        <Grid container spacing={gridSpacing}>
-          <Grid item lg={9} md={6} sm={6} xs={12}>
-            {/* <EarningCard isLoading={isLoading} />
+      </Grid>
+      <Grid item lg={9} md={10} xs={12}>
+        <Grid item xs={12}>
+          {/* <EarningCard isLoading={isLoading} />
           </Grid>
           <Grid item lg={4} md={6} sm={6} xs={12}>
             <TotalOrderLineChartCard isLoading={isLoading} /> */}
-            <Banner />
-          </Grid>
-          <Grid item lg={3} md={12} sm={12} xs={12}>
-            <Grid container spacing={gridSpacing}>
-              <Grid item sm={6} xs={12} md={6} lg={12}>
-                <BusinessGrowth />
-              </Grid>
-              {/* <Grid item sm={6} xs={12} md={6} lg={12}>
-                <TotalGrowthBarChart />
-              </Grid> */}
-            </Grid>
-          </Grid>
+          <Banner />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h2" sx={{ marginBottom: '10px' }}>
+            AI Agents
+          </Typography>
+        </Grid>
+        <Grid item sx={{ display: 'flex', flexDirection: 'column' }} lg={12}>
+          {/* <TotalGrowthBarChart isLoading={isLoading} /> */}
+          <Agents />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h2" sx={{ marginBottom: '10px' }}>
+            Most Used Tasks
+          </Typography>
+          <Tasks />
         </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <Typography variant="h2" sx={{ marginBottom: '10px' }}>
-          AI Agents
-        </Typography>
-        <Grid container spacing={gridSpacing}>
-          <Grid item sx={{ display: 'flex', flexDirection: 'column' }} xs={12} md={8} lg={9}>
-            {/* <TotalGrowthBarChart isLoading={isLoading} /> */}
-            <Agents />
-            <Typography variant="h2" sx={{ marginBottom: '10px' }}>
-              Most Used Tasks
-            </Typography>
-            <Tasks />
-          </Grid>
-          <Grid item xs={12} md={4} lg={3}>
-            <StatChart />
-          </Grid>
+
+      <Grid item lg={3} md={6} xs={12}>
+        <Grid item xs={12} sx={{ marginBottom: '2rem' }}>
+          <BusinessGrowth />
+        </Grid>
+        <Grid item xs={12}>
+          <StatChart />
         </Grid>
       </Grid>
     </Grid>
