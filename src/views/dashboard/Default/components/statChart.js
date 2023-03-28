@@ -116,7 +116,7 @@ const StatChart = () => {
     ]
   };
   return (
-    <MainCard>
+    <MainCard sx={{ boxShadow: theme.customShadows.primary }}>
       <Grid item xs={12} sx={{ '& .apexcharts-legend-text': { marginLeft: '8px' } }}>
         <Chart {...newChartData} />
       </Grid>

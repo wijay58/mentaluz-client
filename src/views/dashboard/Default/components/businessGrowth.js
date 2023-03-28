@@ -2,10 +2,13 @@ import MainCard from 'ui-component/cards/MainCard';
 import { CardContent, Typography, Grid, Button } from '@mui/material';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import { useTheme } from '@mui/material/styles';
 
 const BusinessGrowth = () => {
+  const theme = useTheme();
+
   return (
-    <MainCard content={false}>
+    <MainCard sx={{ boxShadow: theme.customShadows.primary }} content={false}>
       <CardContent>
         <Grid container>
           <Grid item xs={12}>
