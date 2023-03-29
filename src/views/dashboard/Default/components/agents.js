@@ -79,7 +79,7 @@ const Agents = () => {
         <Box sx={{ flexGrow: 1 }}>
           <Grid Grid container spacing={2}>
             {agents.map((agent, i) => (
-              <Grid item xs={3}>
+              <Grid item xs={12} md={6} lg={3}>
                 <ReactCardFlip isFlipped={flipped.has(i)} flipDirection="horizontal">
                   <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseOver={handleClick(i)}>
                     <CardMedia component="img" sx={{ minHeight: '20rem' }} image={agent.image} />

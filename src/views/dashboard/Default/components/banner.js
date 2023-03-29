@@ -33,7 +33,6 @@ const Banner = () => {
             <CardActions sx={{ alignSelf: 'flex-end' }}>
               <Button
                 variant="contained"
-                color="secondary"
                 sx={{
                   boxShadow: theme.customShadows.primary,
                   ':hover': {
