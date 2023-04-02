@@ -130,6 +130,9 @@ const UtilsGrid = Loadable(lazy(() => import('views/utilities/Grid')));
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
+// Menta pages
+const Profile = Loadable(lazy(() => import('views/profile')));
+
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -152,7 +155,10 @@ const MainRoutes = {
             path: '/widget/chart',
             element: <WidgetChart />
         },
-
+        {
+          path: '/user/profile',
+          element: <Profile />
+        },
         {
             path: '/user/social-profile/:tab',
             element: <AppUserSocialProfile />

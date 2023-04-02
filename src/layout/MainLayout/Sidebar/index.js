@@ -23,6 +23,7 @@ import { openDrawer } from 'store/slices/menu';
 import User1 from 'assets/images/users/user-round.svg';
 import { display } from '@mui/system';
 import useAuth from 'hooks/useAuth';
+import { Link } from 'react-router-dom';
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
@@ -79,20 +80,22 @@ const Sidebar = () => {
       >
         {layout === LAYOUT_CONST.VERTICAL_LAYOUT && drawerOpen &&
           <>
-            <Avatar
-              src={User1}
-              sx={{
-                alignSelf: 'center',
-                width: 120,
-                height: 120,
-                margin: '8px 0 8px 8px !important',
-                cursor: 'pointer'
-              }}
-              ref={anchorRef}
-              // aria-controls={open ? 'menu-list-grow' : undefined}
-              aria-haspopup="true"
-              color="inherit"
-            />
+            <Link style={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }} to='/user/profile'>
+              <Avatar
+                src={User1}
+                sx={{
+                  alignSelf: 'center',
+                  width: 120,
+                  height: 120,
+                  margin: '8px 0 8px 8px !important',
+                  cursor: 'pointer'
+                }}
+                ref={anchorRef}
+                // aria-controls={open ? 'menu-list-grow' : undefined}
+                aria-haspopup="true"
+                color="inherit"
+              />
+            </Link>
             <Names />
           </>
         }
