@@ -2,14 +2,15 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { IconChartArcs, IconClipboardList, IconChartInfographic, IconUserCircle } from '@tabler/icons';
+import { IconChartArcs, IconClipboardList, IconChartInfographic, IconUserCircle, IconBrain } from '@tabler/icons';
 
 // constant
 const icons = {
     IconChartArcs,
     IconClipboardList,
     IconChartInfographic,
-    IconUserCircle
+    IconUserCircle,
+    IconBrain
 };
 
 // ==============================|| WIDGET MENU ITEMS ||============================== //
@@ -26,6 +27,13 @@ const widget = {
             type: 'item',
             url: 'user/profile',
             icon: icons.IconUserCircle
+        },
+        {
+            id: 'aiSpecialists',
+            title: <FormattedMessage id="aiSpecialists" />,
+            type: 'item',
+            url: 'agent/aiSpecialists',
+            icon: icons.IconBrain
         },
         {
             id: 'statistics',

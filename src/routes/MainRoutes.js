@@ -132,6 +132,7 @@ const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
 // Menta pages
 const Profile = Loadable(lazy(() => import('views/profile')));
+const AIProfile = Loadable(lazy(() => import('views/aiProfile')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -155,9 +156,14 @@ const MainRoutes = {
             path: '/widget/chart',
             element: <WidgetChart />
         },
+        // pages
         {
-          path: '/user/profile',
+          path: 'user/profile',
           element: <Profile />
+        },
+        {
+          path: 'agent/aiSpecialists',
+          element: <AIProfile />
         },
         {
             path: '/user/social-profile/:tab',

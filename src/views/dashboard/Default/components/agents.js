@@ -6,6 +6,7 @@ import Card2 from 'assets/images/cards/card-2.jpg';
 import { Card, CardMedia, CardContent, Grid, Typography, Button, Box } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import ReactCardFlip from 'react-card-flip';
+import Agent from './agent';
 
 const Agents = () => {
   const theme = useTheme();
@@ -82,15 +83,7 @@ const Agents = () => {
               <Grid item xs={12} md={6} lg={3}>
                 <ReactCardFlip isFlipped={flipped.has(i)} flipDirection="horizontal">
                   <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseOver={handleClick(i)}>
-                    <CardMedia component="img" sx={{ minHeight: '20rem' }} image={agent.image} />
-                    <Grid container spacing={1}>
-                      <Grid xs={12} sx={{ padding: '0 !important' }} item>
-                        <Typography sx={{ paddingX: '20px', paddingY: '13px' }} variant="subtitle1">{agent.name}</Typography>
-                        <Typography sx={{ paddingX: '20px', marginTop: '-13px', marginBottom: '5px' }} variant="subtitle2">
-                          AI Agent
-                        </Typography>
-                      </Grid>
-                    </Grid>
+                    <Agent agent={agent} height='20rem' style={{ left: '15rem' }} />
                   </Card>
                   <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseLeave={handleClick(i)}>
                     <CardContent sx={{ minHeight: '23.5rem', maxHeight: '23.5rem', overflow: 'auto' }}>

@@ -1,9 +1,9 @@
-import { Grid, Typography, Button, Avatar, CardContent, LinearProgress, Card } from '@mui/material';
+import { useState } from 'react';
+import { Grid, Typography, Button, Avatar, LinearProgress, Card, Tooltip } from '@mui/material';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import Avatar1 from 'assets/images/users/user-1.png';
 import SubCard from 'ui-component/cards/SubCard';
-import MainCard from 'ui-component/cards/MainCard';
 import Members from './components/members';
 import { useTheme, styled } from '@mui/material/styles';
 import Business from './components/business';
@@ -11,6 +11,7 @@ import Notifications from './components/notifications';
 
 const Profile = () => {
   const theme = useTheme();
+  const [open, setOpen] = useState(false);
 
   const BorderLinearProgress = styled(LinearProgress)(() => ({
     height: 15,
@@ -19,6 +20,19 @@ const Profile = () => {
       borderRadius: 5
     }
   }));
+
+  const handleTooltipOpen = () => {
+    setOpen(true);
+    setTimeout(() => {
+      setOpen(false);
+    }, 1000);
+  };
+
+  const copyToClipboard = () => {
+    const text = document.getElementById('link').innerHTML;
+    navigator.clipboard.writeText(text);
+    handleTooltipOpen();
+  };
 
   return (
     <Grid container spacing={2}>
@@ -33,8 +47,9 @@ const Profile = () => {
             </Grid>
             <Grid item xs={12}>
               <AnimateButton>
-                <Button sx={{ width: '150px' }} variant="contained" size="small">
+                <Button sx={{ width: '150px' }} variant="contained" component="label" size="small">
                   Import
+                  <input hidden accept="image/*" type="file" />
                 </Button>
               </AnimateButton>
             </Grid>
@@ -65,16 +80,22 @@ const Profile = () => {
           <SubCard sx={{ boxShadow: theme.customShadows.primary }} contentSX={{ textAlign: 'left' }}>
             <Grid container alignItems='center' spacing={2}>
               <Grid item xs={12} md={6} lg={9}>
-                <Typography variant="h3" sx={{ marginBottom: '5px', overflow: 'auto' }}>
+                <Typography variant="h3" id='link' sx={{ marginBottom: '5px', overflow: 'auto' }}>
                   www.mentaluz.com/affiliate/123456789
                 </Typography>
               </Grid>
               <Grid item xs={12} md={6} lg={3}>
-                <AnimateButton>
-                  <Button sx={{ width: '150px', marginBottom: '5px' }} variant="contained" size="small">
-                    Copy
-                  </Button>
-                </AnimateButton>
+                <Tooltip
+                  placement="top"
+                  open={open}
+                  title="Copied to clipboard"
+                >
+                  <AnimateButton>
+                    <Button sx={{ width: '150px', marginBottom: '5px' }} onClick={copyToClipboard} variant="contained" size="small">
+                      Copy
+                    </Button>
+                  </AnimateButton>
+                </Tooltip>
                 <AnimateButton>
                   <Button sx={{ width: '150px' }} variant="contained" size="small">
                     Send
