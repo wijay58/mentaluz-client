@@ -35,7 +35,7 @@ const Profile = () => {
   };
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={5}>
       <Grid item sm={6} md={6} xs={12}>
         <Typography variant="h2" sx={{ marginBottom: '10px' }}>
           Profile

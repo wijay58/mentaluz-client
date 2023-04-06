@@ -132,7 +132,7 @@ const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
 // Menta pages
 const Profile = Loadable(lazy(() => import('views/profile')));
-const AIProfile = Loadable(lazy(() => import('views/aiProfile')));
+const AIProfile = Loadable(lazy(() => import('views/aiProfile/landing')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 

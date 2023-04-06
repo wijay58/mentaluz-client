@@ -28,7 +28,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <Grid container spacing={gridSpacing}>
+    <Grid container spacing={6}>
       <Grid item xs={12}>
         {user ?
           <Typography sx={{ marginBottom: '12px' }} variant="h2">

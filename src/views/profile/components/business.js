@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, CardContent, Input, InputAdornment, TextField, InputLabel, FormControl, Button } from '@mui/material';
+import { Grid, Typography, CardContent, Input, InputAdornment, TextField, InputLabel, FormControl, Button, InputBase } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MainCard from 'ui-component/cards/MainCard';
 import SubCard from 'ui-component/cards/SubCard';
@@ -33,13 +33,13 @@ const Business = () => {
         </CardContent>
       </MainCard>
       <SubCard sx={{ boxShadow: theme.customShadows.primary, marginBottom: '1rem' }} contentSX={{ textAlign: 'left' }}>
-        <FormControl sx={{ width: '100%' }} variant="standard">
+        <FormControl sx={{ width: '100%' }} variant="outlined">
           <InputLabel htmlFor="standard-adornment-Phone">Phone</InputLabel>
-          <Input
+          <InputBase
             sx={{ width: '100%' }}
             id="standard-adornment-Phone"
             endAdornment={
-              <InputAdornment position="end">
+              <InputAdornment sx={{ alignSelf: 'end' }} position="end">
                 <AnimateButton>
                   <Button sx={{ width: '150px', marginBottom: '5px' }} variant="contained" size="small">
                     Change
@@ -52,13 +52,13 @@ const Business = () => {
         </FormControl>
       </SubCard>
       <SubCard sx={{ boxShadow: theme.customShadows.primary, marginBottom: '1rem' }} contentSX={{ textAlign: 'left' }}>
-        <FormControl sx={{ width: '100%' }} variant="standard">
+        <FormControl sx={{ width: '100%' }} variant="outlined">
           <InputLabel htmlFor="standard-adornment-Phone">Phone</InputLabel>
-          <Input
+          <InputBase
             sx={{ width: '100%' }}
             id="standard-adornment-Phone"
             endAdornment={
-              <InputAdornment position="end">
+              <InputAdornment sx={{ alignSelf: 'end' }} position="end">
                 <AnimateButton>
                   <Button sx={{ width: '150px', marginBottom: '5px' }} variant="contained" size="small">
                     Change
@@ -71,13 +71,13 @@ const Business = () => {
         </FormControl>
       </SubCard>
       <SubCard sx={{ boxShadow: theme.customShadows.primary, marginBottom: '1rem' }} contentSX={{ textAlign: 'left' }}>
-        <FormControl sx={{ width: '100%' }} variant="standard">
+        <FormControl sx={{ width: '100%' }} variant="outlined">
           <InputLabel htmlFor="standard-adornment-Phone">Phone</InputLabel>
-          <Input
+          <InputBase
             sx={{ width: '100%' }}
             id="standard-adornment-Phone"
             endAdornment={
-              <InputAdornment position="end">
+              <InputAdornment sx={{ alignSelf: 'end' }} position="end">
                 <AnimateButton>
                   <Button sx={{ width: '150px', marginBottom: '5px' }} variant="contained" size="small">
                     Change
@@ -90,13 +90,13 @@ const Business = () => {
         </FormControl>
       </SubCard>
       <SubCard sx={{ boxShadow: theme.customShadows.primary, marginBottom: '1rem' }} contentSX={{ textAlign: 'left' }}>
-        <FormControl sx={{ width: '100%' }} variant="standard">
+        <FormControl sx={{ width: '100%' }} variant="outlined">
           <InputLabel htmlFor="standard-adornment-Phone">Phone</InputLabel>
-          <Input
+          <InputBase
             sx={{ width: '100%' }}
             id="standard-adornment-Phone"
             endAdornment={
-              <InputAdornment position="end">
+              <InputAdornment sx={{ alignSelf: 'end' }} position="end">
                 <AnimateButton>
                   <Button sx={{ width: '150px', marginBottom: '5px' }} variant="contained" size="small">
                     Change

@@ -87,9 +87,9 @@ const Header = () => {
             <ProfileSection />
 
             {/* mobile header */}
-            <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+            {/* <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
                 <MobileSection />
-            </Box>
+            </Box> */}
         </>
     );
 };
