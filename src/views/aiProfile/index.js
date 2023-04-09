@@ -3,11 +3,13 @@ import Agent from 'views/dashboard/Default/components/agent';
 import Card2 from 'assets/images/cards/card-2.jpg';
 import Card3 from 'assets/images/cards/card-3.jpg';
 import { useTheme } from '@mui/material/styles';
+import { useLocation } from 'react-router-dom';
 
 const AIProfile = () => {
   const theme = useTheme();
+  const { state } = useLocation();
   const agent = {
-    name: 'Agent1',
+    name: state.agent,
     image: Card3
   };
   const tasks = [1, 2, 3, 4, 5, 6];
@@ -47,10 +49,10 @@ const AIProfile = () => {
           {tasks.map((task, i) => (
             <Grid key={i} item xs={6}>
               {/* <Card sx={{ boxShadow: theme.customShadows.primary }}> */}
-                {/* <CardMedia component="img" sx={{ minHeight: '8rem', maxHeight: '8rem' }} image={Card2} /> */}
-                <Button sx={{ borderRadius: theme.shape.borderRadius, boxShadow: theme.customShadows.primary, width: '100%', height: '6rem', fontSize: "23px" }} variant="contained" size="large">
-                  Youtube
-                </Button>
+              {/* <CardMedia component="img" sx={{ minHeight: '8rem', maxHeight: '8rem' }} image={Card2} /> */}
+              <Button sx={{ borderRadius: theme.shape.borderRadius, boxShadow: theme.customShadows.primary, width: '100%', height: '6rem', fontSize: "23px" }} variant="contained" size="large">
+                Youtube
+              </Button>
               {/* </Card> */}
             </Grid>
           ))}

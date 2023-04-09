@@ -132,7 +132,8 @@ const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
 // Menta pages
 const Profile = Loadable(lazy(() => import('views/profile')));
-const AIProfile = Loadable(lazy(() => import('views/aiProfile/landing')));
+const AISpecialists = Loadable(lazy(() => import('views/aiProfile/landing')));
+const AIProfile = Loadable(lazy(() => import('views/aiProfile/index')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -163,6 +164,10 @@ const MainRoutes = {
         },
         {
           path: 'agent/aiSpecialists',
+          element: <AISpecialists />
+        },
+        {
+          path: 'agent/aiProfile',
           element: <AIProfile />
         },
         {
