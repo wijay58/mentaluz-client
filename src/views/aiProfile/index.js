@@ -34,9 +34,6 @@ const AIProfile = () => {
               vel sem rutrum lacus pharetra convallis. Pellentesque habitant morbi tristique senectus et netus et malesuada
               fames ac turpis egestas. Integer accumsan magna at tellus lacinia, sed aliquet lorem aliquam. Proin turpis
               nibh, tristique quis turpis ac, interdum pretium est. Aenean ligula dui, aliquam ac tempor ac, pulvinar
-              quis magna. Sed velit ligula, feugiat et ante vitae, vestibulum luctus orci. Praesent sit amet molestie risus.
-              Proin vestibulum ornare nibh, a imperdiet eros porta vitae. Nulla at lectus magna. Integer vitae lorem ante.
-              Donec et fermentum tortor, vitae elementum quam. Curabitur accumsan faucibus est quis luctus.
             </Typography>
           </CardContent>
         </Card>

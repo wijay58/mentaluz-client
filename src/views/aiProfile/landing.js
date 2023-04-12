@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import { Grid, Typography, Card, CardContent, CardMedia, MobileStepper, Button } from '@mui/material';
-import Card2 from 'assets/images/cards/card-2.jpg';
+import Card1 from 'assets/images/cards/card-1.png';
+import Card2 from 'assets/images/cards/card-2.png';
+import Card3 from 'assets/images/cards/card-3.png';
+import Card4 from 'assets/images/cards/card-4.png';
+import Card5 from 'assets/images/cards/card-5.png';
+import Card6 from 'assets/images/cards/card-6.png';
+import Card7 from 'assets/images/cards/card-7.png';
+import Card8 from 'assets/images/cards/card-8.png';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import { useTheme } from '@mui/material/styles';
@@ -18,7 +25,7 @@ const AIAgents = () => {
   const agents = [
     {
       name: 'Agent1',
-      image: Card2
+      image: Card1
     },
     {
       name: 'Agent2',
@@ -26,27 +33,27 @@ const AIAgents = () => {
     },
     {
       name: 'Agent3',
-      image: Card2
+      image: Card3
     },
     {
       name: 'Agent4',
-      image: Card2
+      image: Card4
     },
     {
       name: 'Agent1',
-      image: Card2
+      image: Card5
     },
     {
       name: 'Agent2',
-      image: Card2
+      image: Card6
     },
     {
       name: 'Agent3',
-      image: Card2
+      image: Card7
     },
     {
       name: 'Agent4',
-      image: Card2
+      image: Card8
     },
   ];
 
