@@ -1,8 +1,8 @@
 import { Card, CardMedia, CardContent, Grid, Typography, CardActions, Button } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
-import Card3 from 'assets/images/cards/card-3.jpg';
-import Card2 from 'assets/images/cards/card-2.jpg';
-import Card1 from 'assets/images/cards/card-1.jpg';
+import banner1 from 'assets/images/banner/banner-1.png';
+import banner2 from 'assets/images/banner/banner-2.png';
+import banner3 from 'assets/images/banner/banner-3.png';
 import Carousel from 'react-material-ui-carousel';
 
 const Banner = () => {
@@ -10,15 +10,15 @@ const Banner = () => {
 
   const items = [
     {
-      image: Card2,
+      image: banner1,
       description: "Order Now"
     },
     {
-      image: Card1,
+      image: banner2,
       description: "Try Now"
     },
     {
-      image: Card3,
+      image: banner3,
       description: "Get In"
     }
   ];
