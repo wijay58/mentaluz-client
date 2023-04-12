@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
-import Card1 from 'assets/images/cards/card-1.jpg';
-import Card3 from 'assets/images/cards/card-3.jpg';
-import Card2 from 'assets/images/cards/card-2.jpg';
+import Card1 from 'assets/images/cards/card-1.png';
+import Card2 from 'assets/images/cards/card-2.png';
+import Card3 from 'assets/images/cards/card-3.png';
+import Card4 from 'assets/images/cards/card-4.png';
+import Card5 from 'assets/images/cards/card-5.png';
+import Card6 from 'assets/images/cards/card-6.png';
+import Card7 from 'assets/images/cards/card-7.png';
+import Card8 from 'assets/images/cards/card-8.png';
+// import Card9 from 'assets/images/cards/card-9.png';
+// import Card10 from 'assets/images/cards/card-10.png'; 
+
 import { Card, CardMedia, CardContent, Grid, Typography, Button, Box } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import ReactCardFlip from 'react-card-flip';
@@ -29,7 +37,7 @@ const Agents = () => {
         },
         {
           name: 'Agent4',
-          image: Card1
+          image: Card4
         },
       ]
     },
@@ -38,19 +46,19 @@ const Agents = () => {
       agents: [
         {
           name: 'Agent5',
-          image: Card3
+          image: Card5
         },
         {
           name: 'Agent6',
-          image: Card1
+          image: Card6
         },
         {
           name: 'Agent7',
-          image: Card2
+          image: Card7
         },
         {
           name: 'Agent8',
-          image: Card1
+          image: Card8
         },
       ]
     }
