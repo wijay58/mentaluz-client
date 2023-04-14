@@ -8,9 +8,6 @@ import Card5 from 'assets/images/cards/card-5.png';
 import Card6 from 'assets/images/cards/card-6.png';
 import Card7 from 'assets/images/cards/card-7.png';
 import Card8 from 'assets/images/cards/card-8.png';
-// import Card9 from 'assets/images/cards/card-9.png';
-// import Card10 from 'assets/images/cards/card-10.png'; 
-
 import { Card, CardMedia, CardContent, Grid, Typography, Button, Box } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import ReactCardFlip from 'react-card-flip';
