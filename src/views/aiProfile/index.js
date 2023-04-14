@@ -4,8 +4,11 @@ import Card2 from 'assets/images/cards/card-2.jpg';
 import Card3 from 'assets/images/cards/card-3.jpg';
 import { useTheme } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
+import LargeDialog from './largeDialog';
+import { useState } from 'react';
 
 const AIProfile = () => {
+  const [open, setOpen] = useState(false);
   const theme = useTheme();
   const { state } = useLocation();
   const agent = {
@@ -50,7 +53,7 @@ const AIProfile = () => {
             <Grid key={i} item xs={6}>
               {/* <Card sx={{ boxShadow: theme.customShadows.primary }}> */}
               {/* <CardMedia component="img" sx={{ minHeight: '8rem', maxHeight: '8rem' }} image={Card2} /> */}
-              <Button sx={{ borderRadius: theme.shape.borderRadius, boxShadow: theme.customShadows.primary, width: '100%', height: '6rem', fontSize: "23px" }} variant="contained" size="large">
+              <Button onClick={() => setOpen(true)} sx={{ borderRadius: theme.shape.borderRadius, boxShadow: theme.customShadows.primary, width: '100%', height: '6rem', fontSize: "23px" }} variant="contained" size="large">
                 Youtube
               </Button>
               {/* </Card> */}
@@ -76,6 +79,7 @@ const AIProfile = () => {
           </CardContent>
         </Card>
       </Grid>
+      <LargeDialog open={open} setOpen={setOpen} />
     </Grid>
   );
 };

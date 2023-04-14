@@ -1,4 +1,4 @@
-import { memo, useMemo, useRef } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -25,6 +25,13 @@ import { display } from '@mui/system';
 import useAuth from 'hooks/useAuth';
 import { Link } from 'react-router-dom';
 
+import { Cloudinary } from '@cloudinary/url-gen';
+import { AdvancedImage } from '@cloudinary/react';
+import { thumbnail } from "@cloudinary/url-gen/actions/resize";
+import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
+import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
+import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
+
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
 const Sidebar = () => {
@@ -33,6 +40,22 @@ const Sidebar = () => {
   const theme = useTheme();
   const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
   const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
+
+  const img = localStorage.getItem('userImageUrl');
+  const [imageUrl, setImageUrl] = useState(img);
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: process.env.REACT_APP_CLOUD_NAME
+    }
+  });
+
+  const myImage = cld.image(imageUrl);
+  myImage.resize(thumbnail().width(150).height(150).gravity(focusOn(FocusOn.face()))).roundCorners(byRadius(150));
+
+  useEffect(() => {
+    console.log('lol');
+  }, [img]);
 
   const dispatch = useDispatch();
   const { drawerOpen } = useSelector((state) => state.menu);
@@ -81,7 +104,7 @@ const Sidebar = () => {
         {layout === LAYOUT_CONST.VERTICAL_LAYOUT && drawerOpen &&
           <>
             <Link style={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }} to='/user/profile'>
-              <Avatar
+              {/* <Avatar
                 src={User1}
                 sx={{
                   alignSelf: 'center',
@@ -94,6 +117,9 @@ const Sidebar = () => {
                 // aria-controls={open ? 'menu-list-grow' : undefined}
                 aria-haspopup="true"
                 color="inherit"
+              /> */}
+              <AdvancedImage
+                cldImg={myImage}
               />
             </Link>
             <Names />

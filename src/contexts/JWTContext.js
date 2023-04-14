@@ -49,6 +49,7 @@ const JWTContext = createContext(null);
 export const JWTProvider = ({ children }) => {
     const [state, dispatch] = useReducer(accountReducer, initialState);
     const navigate = useNavigate();
+    const image = localStorage.getItem('userImageUrl');
 
     useEffect(() => {
         const init = async () => {
@@ -79,7 +80,7 @@ export const JWTProvider = ({ children }) => {
         };
 
         init();
-    }, []);
+    }, [image]);
 
     const login = async (email, password) => {
         const response = await apiClient.post('/users/login', { email, password });

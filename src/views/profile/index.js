@@ -8,10 +8,27 @@ import Members from './components/members';
 import { useTheme, styled } from '@mui/material/styles';
 import Business from './components/business';
 import Notifications from './components/notifications';
+import { Cloudinary } from '@cloudinary/url-gen';
+import { AdvancedImage, lazyload } from '@cloudinary/react';
+import useAuth from 'hooks/useAuth';
+import apiClient from 'api-service';
+import { thumbnail } from "@cloudinary/url-gen/actions/resize";
+import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
+import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
+import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 
 const Profile = () => {
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: process.env.REACT_APP_CLOUD_NAME
+    }
+  });
   const theme = useTheme();
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
+  const myImage = cld.image(user.imageUrl);
+  const avatar = myImage.resize(thumbnail().width(150).height(150).gravity(focusOn(FocusOn.face()))).roundCorners(byRadius(150));
+  const [image, setImage] = useState(avatar);
 
   const BorderLinearProgress = styled(LinearProgress)(() => ({
     height: 15,
@@ -34,6 +51,42 @@ const Profile = () => {
     handleTooltipOpen();
   };
 
+  const returnFileSize = (number) => {
+    if (number < 1024) {
+      return `${number} bytes`;
+    } else if (number >= 1024 && number < 1048576) {
+      return `${(number / 1024).toFixed(1)} KB`;
+    } else if (number >= 1048576) {
+      return `${(number / 1048576).toFixed(1)} MB`;
+    }
+  };
+
+  const getImage = async (e) => {
+    const Imagefile = e.target.files[0];
+    const fileSize = returnFileSize(Imagefile.size);
+    if (fileSize > '5 MB') {
+      alert('Image file size must be less than 5 MB');
+    } else {
+      const fd = new FormData();
+      fd.append("file", Imagefile);
+      fd.append("upload_preset", "xrysp5lf");
+      const options = {
+        method: 'POST',
+        body: fd,
+      };
+      fetch("https://api.cloudinary.com/v1_1/wijay58/image/upload", options)
+        .then(async (res) => {
+          const resData = await res.json();
+          const form = new FormData();
+          form.append('image', resData.public_id);
+          const response = await apiClient.put('/users/uploadPhoto', form);
+          setImage(cld.image(response.data.user.imageUrl));
+          localStorage.setItem('userImageUrl', response.data.user.imageUrl);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   return (
     <Grid container spacing={5}>
       <Grid item sm={6} md={6} xs={12}>
@@ -43,20 +96,25 @@ const Profile = () => {
         <SubCard sx={{ boxShadow: theme.customShadows.primary, padding: '10px' }} contentSX={{ textAlign: 'center' }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Avatar alt="User 1" src={Avatar1} sx={{ width: 150, height: 150, margin: '0 auto' }} />
+              {/* <Avatar alt="User 1" src={Avatar1} sx={{ width: 150, height: 150, margin: '0 auto' }} /> */}
+              <AdvancedImage
+                cldImg={image}
+                plugins={[lazyload]}
+              />
             </Grid>
             <Grid item xs={12}>
-              <AnimateButton>
+              {/* <AnimateButton>
                 <Button sx={{ width: '150px' }} variant="contained" component="label" size="small">
                   Import
                   <input hidden accept="image/*" type="file" />
                 </Button>
-              </AnimateButton>
+              </AnimateButton> */}
             </Grid>
             <Grid item xs={12}>
               <AnimateButton>
-                <Button sx={{ width: '150px' }} variant="contained" size="small">
+                <Button sx={{ width: '150px' }} variant="contained" component="label" size="small">
                   Change Photo
+                  <input id="fileInput" onChange={getImage} hidden accept="image/*" name="avatar" type="file" />
                 </Button>
               </AnimateButton>
             </Grid>

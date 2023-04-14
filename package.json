@@ -4,6 +4,8 @@
     "private": true,
     "dependencies": {
         "@auth0/auth0-spa-js": "^2.0.2",
+        "@cloudinary/react": "^1.11.2",
+        "@cloudinary/url-gen": "^1.10.0",
         "@emotion/cache": "^11.10.5",
         "@emotion/react": "^11.10.5",
         "@emotion/styled": "^11.10.5",

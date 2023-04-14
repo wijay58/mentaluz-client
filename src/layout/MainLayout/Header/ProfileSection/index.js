@@ -36,6 +36,12 @@ import UpgradePlanCard from './UpgradePlanCard';
 import useAuth from 'hooks/useAuth';
 import User1 from 'assets/images/users/user-round.svg';
 
+import { Cloudinary } from '@cloudinary/url-gen';
+import { AdvancedImage } from '@cloudinary/react';
+import { thumbnail } from "@cloudinary/url-gen/actions/resize";
+import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
+import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
+import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
 import useConfig from 'hooks/useConfig';
@@ -53,6 +59,14 @@ const ProfileSection = () => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const { logout, user } = useAuth();
   const [open, setOpen] = useState(false);
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: process.env.REACT_APP_CLOUD_NAME
+    }
+  });
+  const myImage = cld.image(user.imageUrl);
+  const avatar = myImage.resize(thumbnail().width(40).height(40).gravity(focusOn(FocusOn.face()))).roundCorners(byRadius(150));
   /**
    * anchorRef is used on different components and specifying one type leads to other components throwing an error
    * */
@@ -116,18 +130,23 @@ const ProfileSection = () => {
           }
         }}
         icon={
-          <Avatar
-            src={User1}
-            sx={{
-              ...theme.typography.mediumAvatar,
-              margin: '8px 0 8px 8px !important',
-              cursor: 'pointer'
-            }}
-            ref={anchorRef}
-            aria-controls={open ? 'menu-list-grow' : undefined}
-            aria-haspopup="true"
-            color="inherit"
-          />
+          // <Avatar
+          //   src={User1}
+          //   sx={{
+          //     ...theme.typography.mediumAvatar,
+          //     margin: '8px 0 8px 8px !important',
+          //     cursor: 'pointer'
+          //   }}
+          //   ref={anchorRef}
+          //   aria-controls={open ? 'menu-list-grow' : undefined}
+          //   aria-haspopup="true"
+          //   color="inherit"
+          // />
+          <Avatar>
+            <AdvancedImage
+              cldImg={myImage}
+            />
+          </Avatar>
         }
         label={
           <>
