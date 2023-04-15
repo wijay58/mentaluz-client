@@ -19,7 +19,11 @@ const initialState = {
     posts: [],
     detailCards: [],
     simpleCards: [],
-    profileCards: []
+    profileCards: [],
+    userData: {
+      imageUrl: '',
+      businessDescription: 'Lorem Ipsum',
+    }
 };
 
 const slice = createSlice({
@@ -149,7 +153,12 @@ const slice = createSlice({
         // UPDATE PROFILE
         updateProfileSuccess(state, action) {
           state.userData = action.payload;
-        }
+        },
+
+        // RESET USER
+        resetProfileSuccess(state) {
+          state.userData = {};
+        },
     }
 });
 
@@ -398,6 +407,18 @@ export function filterProfileCards(key) {
             dispatch(slice.actions.hasError(error));
         }
     };
+}
+
+export function resetUserProfile() {
+  return async () => {
+      try {
+          localStorage.removeItem('serviceToken');
+          delete axios.defaults.headers.common.authorization;
+          dispatch(slice.actions.resetProfileSuccess());
+      } catch (error) {
+          dispatch(slice.actions.hasError(error));
+      }
+  };
 }
 
 export function getUserProfile(data) {

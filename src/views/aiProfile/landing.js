@@ -76,7 +76,7 @@ const AIAgents = () => {
         <Grid container spacing={2}>
           {agents.map((agent, i) => (
             <Grid item xs={12} md={6} lg={3} sx={{ cursor: "pointer" }}>
-              <Link style={{ textDecoration: 'none' }} to='/agent/aiProfile' state={{ agent: agent.name }}>
+              <Link style={{ textDecoration: 'none' }} to='/agent/aiProfile' state={{ agent }}>
                 <ReactCardFlip isFlipped={flipped.has(i)} flipDirection="horizontal">
                   <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseOver={handleEvent(i)}>
                     <Agent agent={agent} height='20rem' style={{ left: '21rem' }} />

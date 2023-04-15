@@ -15,7 +15,7 @@ import Loader from 'ui-component/Loader';
 import axios from 'utils/axios';
 import apiClient from 'api-service';
 import { useDispatch, useSelector } from 'store';
-import { getUserProfile } from 'store/slices/user';
+import { getUserProfile, resetUserProfile } from 'store/slices/user';
 
 const chance = new Chance();
 
@@ -51,7 +51,6 @@ const JWTContext = createContext(null);
 export const JWTProvider = ({ children }) => {
     const [state, dispatch] = useReducer(accountReducer, initialState);
     const navigate = useNavigate();
-    const image = localStorage.getItem('userImageUrl');
     const sliceDispatch = useDispatch();
 
     useEffect(() => {
@@ -62,12 +61,12 @@ export const JWTProvider = ({ children }) => {
                     setSession(serviceToken);
                     const response = await apiClient.get('/users');
                     const user = response.data;
-                    sliceDispatch(getUserProfile(user));
+                    await sliceDispatch(getUserProfile(user));
                     dispatch({
                       type: LOGIN,
                       payload: {
-                        isLoggedIn: true,
-                        user
+                          isLoggedIn: true,
+                          user
                       }
                     });
                   } else {
@@ -84,11 +83,12 @@ export const JWTProvider = ({ children }) => {
         };
 
         init();
-    }, [image]);
+    }, []);
 
     const login = async (email, password) => {
         const response = await apiClient.post('/users/login', { email, password });
         const { token, user } = response.data;
+        await sliceDispatch(getUserProfile(user));
         setSession(token);
         dispatch({
             type: LOGIN,
@@ -130,6 +130,7 @@ export const JWTProvider = ({ children }) => {
     const logout = () => {
         setSession(null);
         dispatch({ type: LOGOUT });
+        sliceDispatch(resetUserProfile());
         navigate('/login');
     };
 

@@ -12,8 +12,8 @@ const AIProfile = () => {
   const theme = useTheme();
   const { state } = useLocation();
   const agent = {
-    name: state.agent,
-    image: Card3
+    name: state.agent.name,
+    image: state.agent.image
   };
   const tasks = [1, 2, 3, 4, 5, 6];
 
