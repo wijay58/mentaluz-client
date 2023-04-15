@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Typography, CardContent, Input, InputAdornment, TextField, InputLabel, FormControl, Button, InputBase } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MainCard from 'ui-component/cards/MainCard';
 import SubCard from 'ui-component/cards/SubCard';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import AnimateButton from 'ui-component/extended/AnimateButton';
+import { updateUserProfile } from 'store/slices/user';
+import { useDispatch, useSelector } from 'store';
 
 const Business = () => {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const { userData } = useSelector((state) => state.user);
+  const [businessFocused, setBusinessFocused] = useState(false);
+  const [businessText, setBusinessText] = useState(userData.businessDescription);
+
+  const updateBusinessText = async () => {
+    dispatch(updateUserProfile({ businessDescription: businessText }));
+  };
+
+  const handleKeyDown = (event, value) => {
+    if (event.key === 'Enter') {
+      setBusinessFocused(false);
+      setBusinessText(value);
+      updateBusinessText();
+    }
+  };
   return (
     <>
       <Typography variant="h2" sx={{ marginBottom: '10px' }}>
@@ -21,13 +38,30 @@ const Business = () => {
                 Describe Your Business
               </Typography>
             </Grid>
-            <Grid item xs={9}>
-              <TextField
-                id="outlined-multiline-static"
-                multiline
-                rows={8}
-                sx={{ width: '100%' }}
-              />
+            <Grid sx={{ wordWrap: 'break-word', overflow: 'auto' }} item xs={9}>
+              {businessFocused ? (
+                <TextField
+                  defaultValue={businessText}
+                  id="outlined-multiline-static"
+                  multiline
+                  onChange={(event) => setBusinessText(event.target.value)}
+                  onKeyDown={(event) => { handleKeyDown(event, event.target.value); }}
+                  onBlur={async () => {
+                    setBusinessFocused(false);
+                    updateBusinessText();
+                  }}
+                  rows={8}
+                  sx={{ width: '100%' }}
+                />
+              ) : (
+                <Typography
+                  variant="subtitle1"
+                  onClick={() => setBusinessFocused(true)}
+                  sx={{ marginBottom: '10px', textAlign: 'center' }}
+                >
+                  {businessText}
+                </Typography>
+              )}
             </Grid>
           </Grid>
         </CardContent>

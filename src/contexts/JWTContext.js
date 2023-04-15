@@ -14,6 +14,8 @@ import accountReducer from 'store/accountReducer';
 import Loader from 'ui-component/Loader';
 import axios from 'utils/axios';
 import apiClient from 'api-service';
+import { useDispatch, useSelector } from 'store';
+import { getUserProfile } from 'store/slices/user';
 
 const chance = new Chance();
 
@@ -50,6 +52,7 @@ export const JWTProvider = ({ children }) => {
     const [state, dispatch] = useReducer(accountReducer, initialState);
     const navigate = useNavigate();
     const image = localStorage.getItem('userImageUrl');
+    const sliceDispatch = useDispatch();
 
     useEffect(() => {
         const init = async () => {
@@ -59,14 +62,15 @@ export const JWTProvider = ({ children }) => {
                     setSession(serviceToken);
                     const response = await apiClient.get('/users');
                     const user = response.data;
+                    sliceDispatch(getUserProfile(user));
                     dispatch({
-                        type: LOGIN,
-                        payload: {
-                            isLoggedIn: true,
-                            user
-                        }
+                      type: LOGIN,
+                      payload: {
+                        isLoggedIn: true,
+                        user
+                      }
                     });
-                } else {
+                  } else {
                     dispatch({
                         type: LOGOUT
                     });

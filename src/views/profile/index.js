@@ -16,6 +16,8 @@ import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
 import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
 import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
+import { useDispatch, useSelector } from 'store';
+import { updateUserProfile } from 'store/slices/user';
 
 const Profile = () => {
   const cld = new Cloudinary({
@@ -24,9 +26,11 @@ const Profile = () => {
     }
   });
   const theme = useTheme();
-  const { user } = useAuth();
+  const dispatch = useDispatch();
+  const { userData } = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
-  const myImage = cld.image(user.imageUrl);
+  const [progress, setProgress] = useState(false);
+  const myImage = cld.image(userData.imageUrl);
   const avatar = myImage.resize(thumbnail().width(150).height(150).gravity(focusOn(FocusOn.face()))).roundCorners(byRadius(150));
   const [image, setImage] = useState(avatar);
 
@@ -62,6 +66,7 @@ const Profile = () => {
   };
 
   const getImage = async (e) => {
+    setProgress(true);
     const Imagefile = e.target.files[0];
     const fileSize = returnFileSize(Imagefile.size);
     if (fileSize > '5 MB') {
@@ -78,12 +83,15 @@ const Profile = () => {
         .then(async (res) => {
           const resData = await res.json();
           const form = new FormData();
-          form.append('image', resData.public_id);
-          const response = await apiClient.put('/users/uploadPhoto', form);
-          setImage(cld.image(response.data.user.imageUrl));
-          localStorage.setItem('userImageUrl', response.data.user.imageUrl);
+          form.append('imageUrl', resData.public_id);
+          const userData = await dispatch(updateUserProfile(form));
+          setImage(cld.image(userData.imageUrl));
+          setProgress(false);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          setProgress(false);
+        });
     }
   };
 
@@ -124,7 +132,7 @@ const Profile = () => {
           <Card sx={{ boxShadow: theme.customShadows.primary, marginY: '10px' }}>
             <Grid container spacing={2} alignItems="center" justifyContent="center">
               <Grid item xs>
-                <BorderLinearProgress variant="determinate" color="secondary" value={65} />
+                {progress ? <BorderLinearProgress color="secondary" /> : <></>}
               </Grid>
             </Grid>
           </Card>

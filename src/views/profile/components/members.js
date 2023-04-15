@@ -15,7 +15,7 @@ const Members = () => {
     <Card sx={{ boxShadow: theme.customShadows.primary, marginY: '10px' }}>
       <CardContent sx={{ padding: '40px' }}>
         {members.map((member, index) => (
-          <Grid container flexDirection='row' justifyContent="space-between">
+          <Grid container key={index} flexDirection='row' justifyContent="space-between">
             <>
               <Typography variant="h4" sx={{ marginTop: '10px', marginBottom: '5px' }}>
                 {member.name}

@@ -3,13 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // project imports
 import axios from 'utils/axios';
+import apiClient from 'api-service';
 import { dispatch } from '../index';
 
 // ----------------------------------------------------------------------
 
 const initialState = {
-    error: null,
-    usersS1: [],
+  error: null,
+  usersS1: [],
     usersS2: [],
     followers: [],
     friendRequests: [],
@@ -138,6 +139,16 @@ const slice = createSlice({
         // FILTER PROFILE CARDS
         filterProfileCardsSuccess(state, action) {
             state.profileCards = action.payload;
+        },
+
+        // GET PROFILE
+        userProfileSuccess(state, action) {
+          state.userData = action.payload;
+        },
+
+        // UPDATE PROFILE
+        updateProfileSuccess(state, action) {
+          state.userData = action.payload;
         }
     }
 });
@@ -383,6 +394,28 @@ export function filterProfileCards(key) {
         try {
             const response = await axios.post('/api/profile-card/filter', { key });
             dispatch(slice.actions.filterProfileCardsSuccess(response.data.results));
+        } catch (error) {
+            dispatch(slice.actions.hasError(error));
+        }
+    };
+}
+
+export function getUserProfile(data) {
+  return async () => {
+      try {
+          dispatch(slice.actions.userProfileSuccess(data));
+      } catch (error) {
+          dispatch(slice.actions.hasError(error));
+      }
+  };
+}
+
+export function updateUserProfile(data) {
+    return async () => {
+        try {
+            const response = await apiClient.put('/users', data);
+            dispatch(slice.actions.userProfileSuccess(response.data.user));
+            return response.data.user;
         } catch (error) {
             dispatch(slice.actions.hasError(error));
         }

@@ -35,27 +35,32 @@ import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
 const Sidebar = () => {
-  const { logout, user } = useAuth();
-  const anchorRef = useRef(null);
-  const theme = useTheme();
-  const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
-  const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
-
-  const img = localStorage.getItem('userImageUrl');
-  const [imageUrl, setImageUrl] = useState(img);
-
   const cld = new Cloudinary({
     cloud: {
       cloudName: process.env.REACT_APP_CLOUD_NAME
     }
   });
 
-  const myImage = cld.image(imageUrl);
-  myImage.resize(thumbnail().width(150).height(150).gravity(focusOn(FocusOn.face()))).roundCorners(byRadius(150));
+  const { logout, user } = useAuth();
+  const anchorRef = useRef(null);
+  const theme = useTheme();
+  const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
+  const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
+  const { userData } = useSelector((state) => state.user);
+
+  let myImage;
+  const createImage = () => {
+    myImage = cld.image(userData.imageUrl);
+    myImage.resize(thumbnail().width(150).height(150).gravity(focusOn(FocusOn.face()))).roundCorners(byRadius(150));
+    return myImage;
+  };
+  const [image, setImage] = useState(createImage(myImage));
 
   useEffect(() => {
-    console.log('lol');
-  }, [img]);
+    if (userData.imageUrl) {
+      setImage(createImage());
+    }
+  }, [userData]);
 
   const dispatch = useDispatch();
   const { drawerOpen } = useSelector((state) => state.menu);
@@ -119,7 +124,7 @@ const Sidebar = () => {
                 color="inherit"
               /> */}
               <AdvancedImage
-                cldImg={myImage}
+                cldImg={image}
               />
             </Link>
             <Names />
@@ -141,7 +146,7 @@ const Sidebar = () => {
       </PerfectScrollbar>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [matchUpMd, drawerOpen, drawerType]
+    [matchUpMd, drawerOpen, drawerType, image]
   );
 
   return (

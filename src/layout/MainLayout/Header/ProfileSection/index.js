@@ -45,6 +45,7 @@ import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
 import useConfig from 'hooks/useConfig';
+import { useSelector } from 'store';
 
 // ==============================|| PROFILE MENU ||============================== //
 
@@ -57,7 +58,8 @@ const ProfileSection = () => {
   const [value, setValue] = useState('');
   const [notification, setNotification] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const { logout, user } = useAuth();
+  const { logout } = useAuth();
+  const { userData } = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
 
   const cld = new Cloudinary({
@@ -65,7 +67,8 @@ const ProfileSection = () => {
       cloudName: process.env.REACT_APP_CLOUD_NAME
     }
   });
-  const myImage = cld.image(user.imageUrl);
+
+  const myImage = cld.image(userData.imageUrl);
   const avatar = myImage.resize(thumbnail().width(40).height(40).gravity(focusOn(FocusOn.face()))).roundCorners(byRadius(150));
   /**
    * anchorRef is used on different components and specifying one type leads to other components throwing an error
@@ -151,7 +154,7 @@ const ProfileSection = () => {
         label={
           <>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              {user ? <h3>{user.firstname}</h3> : <></>}
+              {userData ? <h3>{userData.firstname}</h3> : <></>}
               <Divider orientation="vertical" variant='inset' flexItem sx={{ marginLeft: '15px', marginRight: '5px', borderWidth: '1px' }} />
               <IconSettings stroke={1.5} size="24px" color={theme.palette.primary.light} />
             </div>
@@ -192,7 +195,7 @@ const ProfileSection = () => {
                         <Stack direction="row" spacing={0.5} alignItems="center">
                           <Typography variant="h4">Good Morning,</Typography>
                           <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
-                            {user?.name}
+                            {userData?.name}
                           </Typography>
                         </Stack>
                         <Typography variant="subtitle2">Project Admin</Typography>
