@@ -12,6 +12,7 @@ import { Card, CardMedia, CardContent, Grid, Typography, Button, Box } from "@mu
 import { useTheme } from '@mui/material/styles';
 import ReactCardFlip from 'react-card-flip';
 import Agent from './agent';
+import { Link } from 'react-router-dom';
 
 const Agents = () => {
   const theme = useTheme();
@@ -86,27 +87,29 @@ const Agents = () => {
           <Grid Grid container spacing={2}>
             {agents.map((agent, i) => (
               <Grid item xs={12} md={6} lg={3}>
-                <ReactCardFlip isFlipped={flipped.has(i)} flipDirection="horizontal">
-                  <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseOver={handleClick(i)}>
-                    <Agent agent={agent} height='20rem' style={{ left: '15rem' }} />
-                  </Card>
-                  <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseLeave={handleClick(i)}>
-                    <CardContent sx={{ minHeight: '23.5rem', maxHeight: '23.5rem', overflow: 'auto' }}>
-                      <Grid container spacing={1}>
-                        <Grid xs={12} item>
-                          <Typography variant="h3" color='secondary.dark' sx={{ marginBottom: '8px', textAlign: 'center' }}>{agent.name}</Typography>
-                          <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna
-                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                            in reprehenderit in voluptate
-                          </Typography>
+                <Link style={{ textDecoration: 'none' }} to='/agent/aiProfile' state={{ agent }}>
+                  <ReactCardFlip isFlipped={flipped.has(i)} flipDirection="horizontal">
+                    <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseOver={handleClick(i)}>
+                      <Agent agent={agent} height='20rem' style={{ left: '15rem' }} />
+                    </Card>
+                    <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseLeave={handleClick(i)}>
+                      <CardContent sx={{ minHeight: '23.5rem', maxHeight: '23.5rem', overflow: 'auto' }}>
+                        <Grid container spacing={1}>
+                          <Grid xs={12} item>
+                            <Typography variant="h3" color='secondary.dark' sx={{ marginBottom: '8px', textAlign: 'center' }}>{agent.name}</Typography>
+                            <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                              sed do eiusmod tempor incididunt ut labore et dolore magna
+                              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                              laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                              in reprehenderit in voluptate
+                            </Typography>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </CardContent>
-                  </Card>
-                </ReactCardFlip>
+                      </CardContent>
+                    </Card>
+                  </ReactCardFlip>
+                </Link>
               </Grid>
             ))}
           </Grid>

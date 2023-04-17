@@ -2,7 +2,7 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { IconChartArcs, IconClipboardList, IconChartInfographic, IconUserCircle, IconBrain } from '@tabler/icons';
+import { IconChartArcs, IconClipboardList, IconChartInfographic, IconUserCircle, IconBrain, IconMessageChatbot } from '@tabler/icons';
 
 // constant
 const icons = {
@@ -10,7 +10,8 @@ const icons = {
     IconClipboardList,
     IconChartInfographic,
     IconUserCircle,
-    IconBrain
+    IconBrain,
+    IconMessageChatbot
 };
 
 // ==============================|| WIDGET MENU ITEMS ||============================== //
@@ -34,6 +35,13 @@ const widget = {
             type: 'item',
             url: 'agent/aiSpecialists',
             icon: icons.IconBrain
+        },
+        {
+          id: 'chat',
+          title: <FormattedMessage id="chat" />,
+          type: 'item',
+          url: 'agent/chat',
+          icon: icons.IconMessageChatbot
         },
         {
             id: 'statistics',

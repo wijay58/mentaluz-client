@@ -3,6 +3,7 @@ import { CardMedia, Grid, Typography, IconButton } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
+import { Link } from 'react-router-dom';
 
 const Agent = (props) => {
   const { agent, height, icon, style } = props;
@@ -29,7 +30,9 @@ const Agent = (props) => {
         {icon ? (
           <Grid alignSelf='center' textAlign='center' item xs={2}>
             <IconButton color="inherit" size="large">
-              <ChatIcon />
+              <Link style={{ textDecoration: 'none' }} to='/agent/chat' state={{ agent }}>
+                <ChatIcon />
+              </Link>
             </IconButton>
           </Grid>
         ) : <></>}

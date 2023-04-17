@@ -188,13 +188,13 @@ const application = {
                 }
             ]
         },
-        {
-            id: 'chat',
-            title: <FormattedMessage id="chat" />,
-            type: 'item',
-            icon: icons.IconMessages,
-            url: '/app/chat'
-        },
+        // {
+        //     id: 'chat',
+        //     title: <FormattedMessage id="chat" />,
+        //     type: 'item',
+        //     icon: icons.IconMessages,
+        //     url: '/app/chat'
+        // },
         {
             id: 'kanban',
             title: 'Kanban',
