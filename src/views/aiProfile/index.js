@@ -97,7 +97,8 @@ const AIProfile = () => {
                   disabled
                   id="outlined-multiline-static"
                   multiline
-                  rows={8}
+                  minRows={8}
+                  maxRows={17}
                   sx={{
                     overflow: 'auto',
                     width: '100%',
