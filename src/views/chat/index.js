@@ -97,12 +97,12 @@ const Chat = () => {
           Ai Specialist
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={3}>
+          <Grid item lg={3} md={6} xs={12}>
             <Card sx={{ boxShadow: theme.customShadows.primary, marginBottom: '2rem' }}>
-              <Agent agent={agent} height='28rem' icon style={{ left: '21rem' }} />
+              <Agent agent={agent} height='28rem' icon style={{ left: '88%' }} />
             </Card>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item lg={9} md={6} xs={12}>
             <MainCard
               sx={{
                 bgcolor: theme.palette.mode === 'dark' ? 'dark.main' : 'grey.50',

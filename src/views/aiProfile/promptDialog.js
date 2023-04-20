@@ -1,12 +1,35 @@
 import React from 'react';
 import { Dialog, DialogTitle, DialogContent, Grid, IconButton, TextField, Button, DialogActions, InputLabel, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useDispatch } from 'store';
+import { youtube, setLoading } from 'store/slices/agents';
 
 const PromptDialog = (props) => {
-  const { open, setOpen } = props;
+  const { open, setOpen, task, setModalClose } = props;
+  const dispatch = useDispatch();
+
   const handleClose = () => {
     setOpen(false);
   };
+
+  const makeRequest = async (e) => {
+    e.preventDefault();
+    const fields = {};
+    task.formFields.forEach((field) => {
+      console.log(field);
+      fields[field.value] = e.target[field.value].value;
+      console.log(fields);
+    });
+    const data = {
+      task: task.task,
+      data: fields
+    };
+    setModalClose(false);
+    dispatch(setLoading(true));
+    await dispatch(youtube(data));
+    dispatch(setLoading(false));
+  };
+
   return (
     <Dialog
       maxWidth="lg"
@@ -29,25 +52,23 @@ const PromptDialog = (props) => {
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <InputLabel horizontal>
-              <Typography variant='h4'>Subject</Typography>
-            </InputLabel>
-            <TextField id="outlined-basic1" fullWidth />
+      <form onSubmit={makeRequest}>
+        <DialogContent>
+          <Grid container spacing={2}>
+            {task ? task.formFields.map((field) => (
+              <Grid item xs={12}>
+                <InputLabel horizontal>
+                  <Typography variant='h4'>{field.name}</Typography>
+                </InputLabel>
+                <TextField name={field.value} id="outlined-basic1" fullWidth />
+              </Grid>
+            )) : null}
           </Grid>
-          <Grid item xs={12}>
-            <InputLabel horizontal>
-              <Typography variant='h4'>Target Audience</Typography>
-            </InputLabel>
-            <TextField id="outlined-basic1" fullWidth />
-          </Grid>
-        </Grid>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Submit</Button>
-      </DialogActions>
+        </DialogContent>
+        <DialogActions>
+          <Button type='submit' onClick={handleClose}>Submit</Button>
+        </DialogActions>
+      </form>
     </Dialog>
   );
 };

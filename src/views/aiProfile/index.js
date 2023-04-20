@@ -1,14 +1,18 @@
-import { Grid, Typography, Card, CardContent, CardMedia, TextField, Button } from '@mui/material';
+import { Grid, Typography, Card, CardContent, LinearProgress, TextField, Button } from '@mui/material';
+import { linearProgressClasses } from '@mui/material/LinearProgress';
 import Agent from 'views/dashboard/Default/components/agent';
 import Card2 from 'assets/images/cards/card-2.jpg';
 import Card3 from 'assets/images/cards/card-3.jpg';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, styled } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
 import LargeDialog from './largeDialog';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'store';
 
 const AIProfile = () => {
   const [open, setOpen] = useState(false);
+  // const [airesponse, setAiresponse] = useState("");
+  const { response, responseLoading } = useSelector((state) => state.agents);
   const theme = useTheme();
   const { state } = useLocation();
   const agent = {
@@ -17,6 +21,29 @@ const AIProfile = () => {
   };
   const tasks = [1, 2, 3, 4, 5, 6];
 
+  const BorderLinearProgress = styled(LinearProgress)(() => ({
+    height: 15,
+    borderRadius: 5,
+    [`& .${linearProgressClasses.bar}`]: {
+      borderRadius: 5
+    }
+  }));
+
+  // let i = -1;
+  // const speed = 20;
+
+  // function typeWriter() {
+  //   if (i < response.length) {
+  //     document.getElementById("outlined-multiline-static").innerHTML += response.charAt(i);
+  //     i += 1;
+  //     setTimeout(typeWriter, speed);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   typeWriter();
+  // }, [response]);
+
   return (
     <Grid container spacing={6}>
       <Grid item sm={4} md={4} xs={12}>
@@ -24,7 +51,7 @@ const AIProfile = () => {
           Profile
         </Typography>
         <Card sx={{ boxShadow: theme.customShadows.primary, marginBottom: '2rem' }}>
-          <Agent agent={agent} height='28rem' icon style={{ left: '28rem' }} />
+          <Agent agent={agent} height='28rem' icon style={{ left: '89%' }} />
         </Card>
         <Card sx={{ boxShadow: theme.customShadows.primary }}>
           <CardContent>
@@ -65,16 +92,27 @@ const AIProfile = () => {
             <Grid container justifyContent='center' spacing={2}>
               <Grid item xs={9}>
                 <TextField
+                  defaultValue=""
+                  value={response}
                   disabled
                   id="outlined-multiline-static"
                   multiline
                   rows={8}
-                  sx={{ width: '100%' }}
+                  sx={{
+                    overflow: 'auto',
+                    width: '100%',
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
+                  }}
                 />
               </Grid>
             </Grid>
           </CardContent>
         </Card>
+        <Grid>
+          {responseLoading ? <BorderLinearProgress color="secondary" /> : <></>}
+        </Grid>
       </Grid>
       <LargeDialog open={open} setOpen={setOpen} />
     </Grid>

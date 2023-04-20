@@ -12,6 +12,7 @@ import chatReducer from './slices/chat';
 import calendarReducer from './slices/calendar';
 import mailReducer from './slices/mail';
 import userReducer from './slices/user';
+import agentsReducer from './slices/agents';
 import cartReducer from './slices/cart';
 import kanbanReducer from './slices/kanban';
 import menuReducer from './slices/menu';
@@ -36,6 +37,7 @@ const reducer = combineReducers({
     calendar: calendarReducer,
     mail: mailReducer,
     user: userReducer,
+    agents: agentsReducer,
     menu: menuReducer
 });
 

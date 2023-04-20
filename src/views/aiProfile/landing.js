@@ -79,7 +79,7 @@ const AIAgents = () => {
               <Link style={{ textDecoration: 'none' }} to='/agent/aiProfile' state={{ agent }}>
                 <ReactCardFlip isFlipped={flipped.has(i)} flipDirection="horizontal">
                   <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseOver={handleEvent(i)}>
-                    <Agent agent={agent} height='20rem' style={{ left: '21rem' }} />
+                    <Agent agent={agent} height='20rem' style={{ left: '86%' }} />
                   </Card>
                   <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseLeave={handleEvent(i)}>
                     <CardContent sx={{ minHeight: '23.5rem', maxHeight: '23.5rem', overflow: 'auto' }}>
