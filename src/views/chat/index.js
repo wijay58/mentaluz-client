@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Grid, Typography, Avatar, Divider, CardContent, IconButton, TextField, Card } from '@mui/material';
+import { Grid, Typography, LinearProgress, Divider, CardContent, IconButton, TextField, Card } from '@mui/material';
+import { linearProgressClasses } from '@mui/material/LinearProgress';
 import MainCard from 'ui-component/cards/MainCard';
 import Agent from 'views/dashboard/Default/components/agent';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, styled } from '@mui/material/styles';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import ChartHistory from '../application/chat/ChartHistory';
 import { useDispatch, useSelector } from 'store';
@@ -10,9 +11,12 @@ import { useLocation } from 'react-router-dom';
 import { getUser, getUserChats, insertChat } from 'store/slices/chat';
 import SendTwoToneIcon from '@mui/icons-material/SendTwoTone';
 import Card8 from 'assets/images/cards/card-8.png';
+import { chat } from 'store/slices/agents';
 
 const Chat = () => {
   const dispatch = useDispatch();
+  const { userData } = useSelector((state) => state.user);
+  const [loading, setLoaing] = useState(false);
   const [data, setData] = useState([]);
   const [message, setMessage] = useState('');
   const [agent, setAgent] = useState({
@@ -20,23 +24,40 @@ const Chat = () => {
     image: Card8
   });
 
+  const BorderLinearProgress = styled(LinearProgress)(() => ({
+    height: 15,
+    borderRadius: 5,
+    [`& .${linearProgressClasses.bar}`]: {
+      borderRadius: 5
+    }
+  }));
+
   const user = {
     name: agent.name,
     avatar: 'user-1.png',
     online_status: 'available',
   };
 
-  const handleOnSend = () => {
+  const handleOnSend = async () => {
     const d = new Date();
     setMessage('');
     const newMessage = {
-      from: 'User1',
-      to: user.name,
+      /* eslint no-underscore-dangle: 0 */
+      from: userData._id,
+      to: 'Agent',
       text: message,
       time: d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
     setData((prevState) => [...prevState, newMessage]);
-    dispatch(insertChat(newMessage));
+    // dispatch(insertChat(newMessage));
+    const data = {
+      id: userData._id,
+      message
+    };
+    setLoaing(true);
+    const response = await dispatch(chat(data));
+    setData((prevState) => [...prevState, response]);
+    setLoaing(false);
   };
 
   const handleEnter = (event) => {
@@ -46,40 +67,6 @@ const Chat = () => {
     handleOnSend();
   };
 
-  useEffect(() => {
-    setData(
-      [
-        {
-          id: 1,
-          from: 'User1',
-          to: 'Alene',
-          text: 'Hi Good Morning!',
-          time: '11:23 AM'
-        },
-        {
-          id: 2,
-          from: 'Alene',
-          to: 'User1',
-          text: 'Hey. Very Good morning. How are you?',
-          time: '11:23 AM'
-        },
-        {
-          id: 3,
-          from: 'User1',
-          to: 'Alene',
-          text: 'Good. Thank you',
-          time: '11:23 AM'
-        },
-        {
-          id: 4,
-          from: 'Alene',
-          to: 'User1',
-          text: 'I need your minute, are you available?',
-          time: '11:23 AM'
-        }
-      ]
-    );
-  }, []);
   const { state } = useLocation();
 
   useEffect(() => {
@@ -134,7 +121,7 @@ const Chat = () => {
                       theme={theme}
                       handleUserDetails={() => console.log('handleUserDetails')}
                       handleDrawerOpen={() => console.log('handleUserDetails')}
-                      user={user}
+                      user={userData}
                       data={data}
                     />
                     <span ref={scrollRef} />
@@ -160,6 +147,9 @@ const Chat = () => {
                 </Grid>
               </Grid>
             </MainCard>
+            <Grid>
+              {loading ? <BorderLinearProgress color="secondary" /> : <></>}
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

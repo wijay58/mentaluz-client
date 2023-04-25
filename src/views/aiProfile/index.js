@@ -7,19 +7,23 @@ import { useTheme, styled } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
 import LargeDialog from './largeDialog';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'store';
+import { useSelector, useDispatch } from 'store';
+import { getTasks } from 'store/slices/agents';
 
 const AIProfile = () => {
   const [open, setOpen] = useState(false);
+  const [tasks, setTasks] = useState([]);
   // const [airesponse, setAiresponse] = useState("");
   const { response, responseLoading } = useSelector((state) => state.agents);
   const theme = useTheme();
   const { state } = useLocation();
+  const dispatch = useDispatch();
   const agent = {
     name: state.agent.name,
     image: state.agent.image
   };
-  const tasks = [1, 2, 3, 4, 5, 6];
+
+  const groups = ["Youtube", "LinkedIn", "Instagram", "Facebook", "Twitter", "General"];
 
   const BorderLinearProgress = styled(LinearProgress)(() => ({
     height: 15,
@@ -28,6 +32,12 @@ const AIProfile = () => {
       borderRadius: 5
     }
   }));
+
+  const loadTasks = async (e) => {
+    const gotTasks = await dispatch(getTasks(e.target.textContent));
+    setTasks(gotTasks);
+    setOpen(true);
+  };
 
   // let i = -1;
   // const speed = 20;
@@ -73,12 +83,12 @@ const AIProfile = () => {
           Tasks
         </Typography>
         <Grid container spacing={6}>
-          {tasks.map((task, i) => (
+          {groups.map((task, i) => (
             <Grid key={i} item xs={6}>
               {/* <Card sx={{ boxShadow: theme.customShadows.primary }}> */}
               {/* <CardMedia component="img" sx={{ minHeight: '8rem', maxHeight: '8rem' }} image={Card2} /> */}
-              <Button onClick={() => setOpen(true)} sx={{ borderRadius: theme.shape.borderRadius, boxShadow: theme.customShadows.primary, width: '100%', height: '6rem', fontSize: "23px" }} variant="contained" size="large">
-                Youtube
+              <Button onClick={loadTasks} sx={{ borderRadius: theme.shape.borderRadius, boxShadow: theme.customShadows.primary, width: '100%', height: '6rem', fontSize: "23px" }} variant="contained" size="large">
+                {task}
               </Button>
               {/* </Card> */}
             </Grid>
@@ -115,7 +125,7 @@ const AIProfile = () => {
           {responseLoading ? <BorderLinearProgress color="secondary" /> : <></>}
         </Grid>
       </Grid>
-      <LargeDialog open={open} setOpen={setOpen} />
+      <LargeDialog open={open} tasks={tasks} setOpen={setOpen} />
     </Grid>
   );
 };

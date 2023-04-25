@@ -28,8 +28,8 @@ const Banner = () => {
     const { image, description } = item;
     return (
       <Card sx={{ boxShadow: theme.customShadows.primary }}>
-        <CardMedia image={image} title="Card 3">
-          <CardContent sx={{ minHeight: 370, display: 'flex', justifyContent: 'flex-end', alignItems: 'end' }}>
+        <CardMedia image={image} sx={{ backgroundSize: '100% auto' }} title="Card 3">
+          <CardContent sx={{ minHeight: 450, display: 'flex', justifyContent: 'flex-end', alignItems: 'end' }}>
             <CardActions sx={{ alignSelf: 'flex-end' }}>
               <Button
                 variant="contained"
