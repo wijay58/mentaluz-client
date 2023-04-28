@@ -3,10 +3,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material/styles';
 import { useState } from 'react';
 import PromptDialog from './promptDialog';
+import { useDispatch, useSelector } from 'store';
+import { setEditPrompt, setTheTask, setUpdatePrompt } from 'store/slices/agents';
 
 const LargeDialog = (props) => {
   const theme = useTheme();
-  const [promptOpen, setPromptOpen] = useState(false);
+  const dispatch = useDispatch();
+  // const [promptOpen, setPromptOpen] = useState(false);
   const [task, setTask] = useState("");
   const { open, setOpen, tasks } = props;
 
@@ -43,7 +46,10 @@ const LargeDialog = (props) => {
             <Grid key={i} item xs={12} lg={4} md={6}>
               <Button
                 onClick={() => {
-                  setPromptOpen(true);
+                  // setPromptOpen(true);
+                  dispatch(setEditPrompt(true));
+                  dispatch(setUpdatePrompt(false));
+                  dispatch(setTheTask(task));
                   setTask(task);
                 }}
                 sx={{ borderRadius: theme.shape.borderRadius, boxShadow: theme.customShadows.primary, width: '100%', height: '7rem', fontSize: "20px", marginBottom: '1rem' }}
@@ -59,7 +65,7 @@ const LargeDialog = (props) => {
           ))}
         </Grid>
       </DialogContent>
-      <PromptDialog open={promptOpen} task={task} setOpen={setPromptOpen} setModalClose={setOpen} />
+      {/* <PromptDialog task={task} setModalClose={setOpen} /> */}
     </Dialog>
   );
 };

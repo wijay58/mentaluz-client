@@ -27,9 +27,6 @@ const Business = () => {
   };
   return (
     <>
-      <Typography variant="h2" sx={{ marginBottom: '10px' }}>
-        Describe Your Business
-      </Typography>
       <MainCard sx={{ boxShadow: theme.customShadows.primary, marginBottom: '2rem' }} content={false}>
         <CardContent>
           <Grid container justifyContent='center' spacing={2}>

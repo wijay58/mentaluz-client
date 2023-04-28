@@ -1,4 +1,4 @@
-import { Grid, Typography, Card, CardContent, LinearProgress, TextField, Button } from '@mui/material';
+import { Grid, Typography, Card, CardContent, LinearProgress, TextField, Button, IconButton, Tooltip, Backdrop } from '@mui/material';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import Agent from 'views/dashboard/Default/components/agent';
 import Card2 from 'assets/images/cards/card-2.jpg';
@@ -6,15 +6,23 @@ import Card3 from 'assets/images/cards/card-3.jpg';
 import { useTheme, styled } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
 import LargeDialog from './largeDialog';
+import PromptDialog from './promptDialog';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'store';
-import { getTasks } from 'store/slices/agents';
+import { getTasks, setEditPrompt, setUpdatePrompt } from 'store/slices/agents';
+import ChatIcon from '@mui/icons-material/Chat';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import CreateIcon from '@mui/icons-material/Create';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { openSnackbar } from 'store/slices/snackbar';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const AIProfile = () => {
   const [open, setOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [tasksLoading, setTasksLoading] = useState(false);
   // const [airesponse, setAiresponse] = useState("");
-  const { response, responseLoading } = useSelector((state) => state.agents);
+  const { response, responseLoading, updatePromptTask } = useSelector((state) => state.agents);
   const theme = useTheme();
   const { state } = useLocation();
   const dispatch = useDispatch();
@@ -34,9 +42,18 @@ const AIProfile = () => {
   }));
 
   const loadTasks = async (e) => {
+    setTasksLoading(true);
     const gotTasks = await dispatch(getTasks(e.target.textContent));
     setTasks(gotTasks);
     setOpen(true);
+    setTasksLoading(false);
+  };
+
+  const editPrompt = () => {
+    if (updatePromptTask) {
+      dispatch(setUpdatePrompt(true));
+      dispatch(setEditPrompt(true));
+    }
   };
 
   // let i = -1;
@@ -56,6 +73,12 @@ const AIProfile = () => {
 
   return (
     <Grid container spacing={6}>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={tasksLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Grid item sm={4} md={4} xs={12}>
         <Typography variant="h2" sx={{ marginBottom: '10px' }}>
           Profile
@@ -118,6 +141,39 @@ const AIProfile = () => {
                   }}
                 />
               </Grid>
+              <Grid display="flex" justifyContent="space-around" item xs={9}>
+                <CopyToClipboard
+                  onCopy={() =>
+                    dispatch(
+                      openSnackbar({
+                        open: true,
+                        message: 'Copied to Clipboard',
+                        variant: 'alert',
+                        alert: {
+                          color: 'success'
+                        },
+                        close: false,
+                        anchorOrigin: { vertical: 'top', horizontal: 'right' },
+                        transition: 'SlideLeft'
+                      })
+                    )
+                  }
+                >
+                  <IconButton onClick={() => navigator.clipboard.writeText(response)} color="inherit" size="large" sx={{ mr: 1.5 }}>
+                    <Tooltip title="Copy to Clipboard">
+                      <ContentPasteIcon />
+                    </Tooltip>
+                  </IconButton>
+                </CopyToClipboard>
+                <IconButton onClick={editPrompt} color="inherit" size="large">
+                  <Tooltip title="Edit Prompt">
+                    <CreateIcon />
+                  </Tooltip>
+                </IconButton>
+                <IconButton color="inherit" size="large">
+                  <ChatIcon />
+                </IconButton>
+              </Grid>
             </Grid>
           </CardContent>
         </Card>
@@ -126,6 +182,7 @@ const AIProfile = () => {
         </Grid>
       </Grid>
       <LargeDialog open={open} tasks={tasks} setOpen={setOpen} />
+      <PromptDialog setModalClose={setOpen} />
     </Grid>
   );
 };

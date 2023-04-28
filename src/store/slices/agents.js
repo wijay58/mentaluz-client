@@ -10,6 +10,11 @@ const initialState = {
   error: null,
   response: "",
   responseLoading: false,
+  editPrompt: false,
+  updatePrompt: false,
+  updatePromptTask: null,
+  task: null,
+  prompt: null,
   events: []
 };
 
@@ -36,6 +41,26 @@ const slice = createSlice({
     setResponseLoading(state, action) {
       state.responseLoading = action.payload;
     },
+
+    setEditPrompt(state, action) {
+      state.editPrompt = action.payload;
+    },
+
+    setTask(state, action) {
+      state.task = action.payload;
+    },
+
+    setPrompt(state, action) {
+      state.prompt = action.payload;
+    },
+
+    setUpdatePrompt(state, action) {
+      state.updatePrompt = action.payload;
+    },
+
+    setUpdatePromptTask(state, action) {
+      state.updatePromptTask = action.payload;
+    },
   }
 });
 
@@ -45,6 +70,36 @@ export default slice.reducer;
 export function setLoading(loading) {
   return () => {
     dispatch(slice.actions.setResponseLoading(loading));
+  };
+}
+
+export function setEditPrompt(loading) {
+  return () => {
+    dispatch(slice.actions.setEditPrompt(loading));
+  };
+}
+
+export function setTheTask(task) {
+  return () => {
+    dispatch(slice.actions.setTask(task));
+  };
+}
+
+export function setLastPrompt(prompt) {
+  return () => {
+    dispatch(slice.actions.setPrompt(prompt));
+  };
+}
+
+export function setUpdatePrompt(prop) {
+  return () => {
+    dispatch(slice.actions.setUpdatePrompt(prop));
+  };
+}
+
+export function setUpdatePromptTask(task) {
+  return () => {
+    dispatch(slice.actions.setUpdatePromptTask(task));
   };
 }
 
