@@ -106,16 +106,16 @@ export function setUpdatePromptTask(task) {
 export function chat(data) {
   return async () => {
     try {
-      const response = await apiClient.post(`/agents/chat`, { message: data.message });
+      const response = await apiClient.post(`/agents/chat`, { message: data.message, conversation: data.conversation });
       const newMessage = {
         /* eslint no-underscore-dangle: 0 */
         from: 'Agent',
         to: data.id,
-        text: response.data.response,
+        text: response.data.message,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       dispatch(insertChat(newMessage));
-      return newMessage;
+      return { newMessage, conversation: response.data.conversation };
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -137,14 +137,24 @@ export function getTasks(group) {
   };
 }
 
+export function saveFav(data) {
+  return async () => {
+    try {
+      const response = await apiClient.post(`/Favorites`, data);
+      return response.data;
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
 export function youtube(props) {
   const { data, task } = props;
   return async () => {
     try {
       const response = await apiClient.post(`/agents/${task}`, data);
-      const res = response.data.response.replace(/^"(.*)"$/, '$1');
+      const res = response.data.response;
       dispatch(slice.actions.getPromptSuccess(res));
-      return response;
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

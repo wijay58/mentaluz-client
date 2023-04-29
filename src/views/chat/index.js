@@ -16,6 +16,7 @@ import { chat } from 'store/slices/agents';
 const Chat = () => {
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.user);
+  const { chats } = useSelector((state) => state.chat);
   const [loading, setLoaing] = useState(false);
   const [data, setData] = useState([]);
   const [message, setMessage] = useState('');
@@ -23,6 +24,10 @@ const Chat = () => {
     name: 'Default Agent',
     image: Card8
   });
+
+  useEffect(() => {
+    dispatch(getUserChats([]));
+  }, []);
 
   const BorderLinearProgress = styled(LinearProgress)(() => ({
     height: 15,
@@ -50,13 +55,15 @@ const Chat = () => {
     };
     setData((prevState) => [...prevState, newMessage]);
     // dispatch(insertChat(newMessage));
+    // dispatch(getUserChats(conversation));
     const data = {
-      id: userData._id,
+      conversation: chats,
       message
     };
     setLoaing(true);
     const response = await dispatch(chat(data));
-    setData((prevState) => [...prevState, response]);
+    dispatch(getUserChats(response.conversation));
+    setData((prevState) => [...prevState, response.newMessage]);
     setLoaing(false);
   };
 

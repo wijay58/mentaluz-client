@@ -9,20 +9,24 @@ import LargeDialog from './largeDialog';
 import PromptDialog from './promptDialog';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'store';
-import { getTasks, setEditPrompt, setUpdatePrompt } from 'store/slices/agents';
+import { getTasks, setEditPrompt, setUpdatePrompt, saveFav } from 'store/slices/agents';
 import ChatIcon from '@mui/icons-material/Chat';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import CreateIcon from '@mui/icons-material/Create';
+import StarIcon from '@mui/icons-material/Star';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { openSnackbar } from 'store/slices/snackbar';
 import CircularProgress from '@mui/material/CircularProgress';
+import { saveAs } from "file-saver";
+import { Packer, Document, Paragraph, TextRun } from "docx";
 
 const AIProfile = () => {
   const [open, setOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [tasksLoading, setTasksLoading] = useState(false);
   // const [airesponse, setAiresponse] = useState("");
-  const { response, responseLoading, updatePromptTask } = useSelector((state) => state.agents);
+  const { response, responseLoading, updatePromptTask, task } = useSelector((state) => state.agents);
   const theme = useTheme();
   const { state } = useLocation();
   const dispatch = useDispatch();
@@ -53,6 +57,49 @@ const AIProfile = () => {
     if (updatePromptTask) {
       dispatch(setUpdatePrompt(true));
       dispatch(setEditPrompt(true));
+    }
+  };
+
+  const saveFavorite = async () => {
+    if (task) {
+      const data = {
+        task,
+        response
+      };
+      await dispatch(saveFav(data));
+      dispatch(
+        openSnackbar({
+          open: true,
+          message: 'Saved to Favorites',
+          variant: 'alert',
+          alert: {
+            color: 'success'
+          },
+          close: false,
+          anchorOrigin: { vertical: 'top', horizontal: 'right' },
+          transition: 'SlideLeft'
+        })
+      );
+    }
+  };
+
+  const createDoc = () => {
+    if (response) {
+      const doc = new Document({
+        sections: [{
+          properties: {},
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({ text: response }),
+              ],
+            }),
+          ],
+        }],
+      });
+      Packer.toBlob(doc).then((blob) => {
+        saveAs(blob, "response.docx");
+      });
     }
   };
 
@@ -168,6 +215,16 @@ const AIProfile = () => {
                 <IconButton onClick={editPrompt} color="inherit" size="large">
                   <Tooltip title="Edit Prompt">
                     <CreateIcon />
+                  </Tooltip>
+                </IconButton>
+                <IconButton onClick={saveFavorite} color="inherit" size="large">
+                  <Tooltip title="Set Favorite">
+                    <StarIcon />
+                  </Tooltip>
+                </IconButton>
+                <IconButton onClick={createDoc} color="inherit" size="large">
+                  <Tooltip title="Create a Docx File">
+                    <SaveAltIcon />
                   </Tooltip>
                 </IconButton>
                 <IconButton color="inherit" size="large">
