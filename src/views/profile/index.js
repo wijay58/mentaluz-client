@@ -7,10 +7,13 @@ import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 import DescriptionTwoToneIcon from '@mui/icons-material/DescriptionTwoTone';
 import BusinessProfile from './businessProfile';
 import PersonalProfile from './personalProfile';
+import { useSelector } from 'store';
 
 const Profile = () => {
   const theme = useTheme();
   const [value, setValue] = useState(0);
+  const { userData } = useSelector((state) => state.user);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -33,11 +36,13 @@ const Profile = () => {
   const tabsOption = [
     {
       label: 'Personal',
-      icon: <AccountCircleTwoToneIcon sx={{ fontSize: '1.3rem' }} />
+      icon: <AccountCircleTwoToneIcon sx={{ fontSize: '1.3rem' }} />,
+      premium: false
     },
     {
       label: 'Business',
-      icon: <DescriptionTwoToneIcon sx={{ fontSize: '1.3rem' }} />
+      icon: <DescriptionTwoToneIcon sx={{ fontSize: '1.3rem' }} />,
+      premium: true
     }
   ];
 
@@ -77,7 +82,7 @@ const Profile = () => {
         }}
       >
         {tabsOption.map((tab, index) => (
-          <Tab key={index} component={Link} to="#" icon={tab.icon} label={tab.label} {...a11yProps(index)} />
+          <Tab key={index} disabled={tab.premium && !userData.premium} component={Link} to="#" icon={tab.icon} label={tab.label} {...a11yProps(index)} />
         ))}
       </Tabs>
       <TabPanel value={value} index={0}>

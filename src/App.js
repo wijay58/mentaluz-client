@@ -24,32 +24,32 @@ import { JWTProvider } from "./contexts/JWTContext";
 // ==============================|| APP ||============================== //
 
 const App = () => {
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        dispatch(getDashboard()).then(() => {
-            setLoading(true);
-        });
-    }, []);
+  useEffect(() => {
+    dispatch(getDashboard()).then(() => {
+      setLoading(true);
+    });
+  }, []);
 
-    if (!loading) return <Loader />;
+  if (!loading) return <Loader />;
 
-    return (
-        <ThemeCustomization>
-            <RTLLayout>
-                <Locales>
-                    <NavigationScroll>
-                        <JWTProvider>
-                            <>
-                                <Routes />
-                                <Snackbar />
-                            </>
-                        </JWTProvider>
-                    </NavigationScroll>
-                </Locales>
-            </RTLLayout>
-        </ThemeCustomization>
-    );
+  return (
+    <ThemeCustomization>
+      <RTLLayout>
+        <Locales>
+          <NavigationScroll>
+            <JWTProvider>
+              <>
+                <Routes />
+                <Snackbar />
+              </>
+            </JWTProvider>
+          </NavigationScroll>
+        </Locales>
+      </RTLLayout>
+    </ThemeCustomization>
+  );
 };
 
 export default App;

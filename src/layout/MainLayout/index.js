@@ -98,7 +98,7 @@ const MainLayout = () => {
         if (drawerType === LAYOUT_CONST.DEFAULT_DRAWER) {
             dispatch(openDrawer(true));
         }
-        navigate('/dashboard/default');
+        // navigate('/dashboard/default');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

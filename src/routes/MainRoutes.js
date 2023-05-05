@@ -135,6 +135,8 @@ const Profile = Loadable(lazy(() => import('views/profile')));
 const AISpecialists = Loadable(lazy(() => import('views/aiProfile/landing')));
 const AIProfile = Loadable(lazy(() => import('views/aiProfile/index')));
 const Chat = Loadable(lazy(() => import('views/chat')));
+const Success = Loadable(lazy(() => import('views/stripe/paymentSuccess')));
+const Failed = Loadable(lazy(() => import('views/stripe/paymentFailed')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -174,6 +176,14 @@ const MainRoutes = {
         {
           path: 'agent/chat',
           element: <Chat />
+        },
+        {
+          path: 'payment/success',
+          element: <Success />
+        },
+        {
+          path: 'payment/failed',
+          element: <Failed />
         },
         {
             path: '/user/social-profile/:tab',
