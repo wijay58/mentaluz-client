@@ -7,11 +7,6 @@ const PaymentFailed = () => {
   const sessionId = searchParams.get("session_id");
 
   useEffect(() => {
-    if (!sessionId) {
-      navigate('/dashboard/default', { replace: true });
-      return;
-    }
-
     const timer1 = setTimeout(() => {
       navigate('/dashboard/default', { replace: true });
     }, 2000);

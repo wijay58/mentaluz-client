@@ -439,6 +439,7 @@ export function updateUserProfile(data) {
             return response.data.user;
         } catch (error) {
             dispatch(slice.actions.hasError(error));
+            return error;
         }
     };
 }
