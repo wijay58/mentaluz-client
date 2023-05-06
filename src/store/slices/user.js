@@ -449,7 +449,7 @@ export function getUpdatedUserProfile() {
       try {
           const response = await apiClient.get('/users');
           dispatch(slice.actions.userProfileSuccess(response.data.user));
-          return response.data.user;
+          return response.data;
       } catch (error) {
           dispatch(slice.actions.hasError(error));
           return error;
