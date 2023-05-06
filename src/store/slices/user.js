@@ -443,3 +443,16 @@ export function updateUserProfile(data) {
         }
     };
 }
+
+export function getUpdatedUserProfile() {
+  return async () => {
+      try {
+          const response = await apiClient.get('/users');
+          dispatch(slice.actions.userProfileSuccess(response.data.user));
+          return response.data.user;
+      } catch (error) {
+          dispatch(slice.actions.hasError(error));
+          return error;
+      }
+  };
+}
