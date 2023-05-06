@@ -11,8 +11,7 @@ const PaymentSuccess = () => {
   const validateSession = async () => {
     let timer1;
     const updatedUser = await dispatch(getUpdatedUserProfile());
-    console.log(updatedUser);
-    if (updatedUser.premium) {
+    if (updatedUser.data.premium) {
       setFlag("Success");
       timer1 = setTimeout(() => {
         navigate('/dashboard/default', { replace: true });

@@ -448,7 +448,7 @@ export function getUpdatedUserProfile() {
   return async () => {
       try {
           const response = await apiClient.get('/users');
-          dispatch(slice.actions.userProfileSuccess(response));
+          dispatch(slice.actions.userProfileSuccess(response.data));
           return response;
       } catch (error) {
           dispatch(slice.actions.hasError(error));
