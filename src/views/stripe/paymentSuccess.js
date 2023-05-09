@@ -33,7 +33,7 @@ const PaymentSuccess = () => {
 
   return (
     <div>
-      <h1>Payment {flag}</h1>
+      <h1>Testing {flag}</h1>
       <h3>You are being redirected to Mentaluz.com</h3>
     </div>
   );
