@@ -2,7 +2,7 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { IconChartArcs, IconClipboardList, IconChartInfographic, IconUserCircle, IconBrain, IconMessageChatbot } from '@tabler/icons';
+import { IconChartArcs, IconClipboardList, IconChartInfographic, IconUserCircle, IconBrain, IconMessageChatbot, IconDashboard } from '@tabler/icons';
 
 // constant
 const icons = {
@@ -11,7 +11,8 @@ const icons = {
     IconChartInfographic,
     IconUserCircle,
     IconBrain,
-    IconMessageChatbot
+    IconMessageChatbot,
+    IconDashboard
 };
 
 // ==============================|| WIDGET MENU ITEMS ||============================== //
@@ -22,6 +23,13 @@ const widget = {
     icon: icons.IconChartArcs,
     type: 'group',
     children: [
+        {
+            id: 'dashboard',
+            title: <FormattedMessage id="dashboard" />,
+            type: 'item',
+            url: '/dashboard',
+            icon: icons.IconDashboard
+        },
         {
             id: 'profile',
             title: <FormattedMessage id="profile" />,
@@ -43,27 +51,6 @@ const widget = {
           url: 'agent/chat',
           icon: icons.IconMessageChatbot
         },
-        {
-            id: 'statistics',
-            title: <FormattedMessage id="statistics" />,
-            type: 'item',
-            url: '/widget/statistics',
-            icon: icons.IconChartArcs
-        },
-        {
-            id: 'data',
-            title: <FormattedMessage id="data" />,
-            type: 'item',
-            url: '/widget/data',
-            icon: icons.IconClipboardList
-        },
-        {
-            id: 'chart',
-            title: <FormattedMessage id="chart" />,
-            type: 'item',
-            url: '/widget/chart',
-            icon: icons.IconChartInfographic
-        }
     ]
 };
 

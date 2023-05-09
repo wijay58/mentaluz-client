@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
@@ -77,6 +77,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({
 // ==============================|| MAIN LAYOUT ||============================== //
 
 const MainLayout = () => {
+    const location = useLocation();
     const theme = useTheme();
 
     const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
@@ -98,7 +99,10 @@ const MainLayout = () => {
         if (drawerType === LAYOUT_CONST.DEFAULT_DRAWER) {
             dispatch(openDrawer(true));
         }
-        // navigate('/dashboard/default');
+        if (location.pathname === '/') {
+          console.log(location.pathname);
+          navigate('/dashboard');
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -146,8 +150,6 @@ const MainLayout = () => {
             {/* main content */}
             <Main theme={theme} open={drawerOpen} layout={layout}>
                 <Container maxWidth={container ? 'lg' : false} {...(!container && { sx: { px: { xs: 0 } } })}>
-                    {/* breadcrumb */}
-                    <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
                     <Outlet />
                 </Container>
             </Main>

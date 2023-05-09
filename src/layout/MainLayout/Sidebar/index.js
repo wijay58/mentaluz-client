@@ -2,7 +2,7 @@ import { memo, useEffect, useMemo, useRef, useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Box, Drawer, Stack, useMediaQuery, Avatar, Button } from '@mui/material';
+import { Box, Drawer, Divider, useMediaQuery, Avatar, Button } from '@mui/material';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -24,6 +24,7 @@ import User1 from 'assets/images/users/user-round.svg';
 import { display } from '@mui/system';
 import useAuth from 'hooks/useAuth';
 import { Link } from 'react-router-dom';
+import apiClient from 'api-service';
 
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage } from '@cloudinary/react';
@@ -40,6 +41,11 @@ const Sidebar = () => {
       cloudName: process.env.REACT_APP_CLOUD_NAME
     }
   });
+
+  const handlePayment = async () => {
+    const response = await apiClient.get('/payments/checkout');
+    window.location.href = response.data.url;
+  };
 
   const { logout, user } = useAuth();
   const anchorRef = useRef(null);
@@ -131,17 +137,13 @@ const Sidebar = () => {
           </>
         }
         <MenuList lastItem={null} />
-        {layout === LAYOUT_CONST.VERTICAL_LAYOUT && drawerOpen && <MenuCard />}
-        {layout === LAYOUT_CONST.VERTICAL_LAYOUT && drawerOpen && (
-          <Stack direction="row" justifyContent="center" sx={{ mb: 2 }}>
-            <Chip
-              label={process.env.REACT_APP_VERSION}
-              disabled
-              chipcolor="secondary"
-              size="small"
-              sx={{ cursor: 'pointer' }}
-            />
-          </Stack>
+        {layout === LAYOUT_CONST.VERTICAL_LAYOUT && drawerOpen && !userData.premium && (
+          <>
+          <Divider sx={{ mt: 0.25, mb: 1.25 }} />
+          <Button onClick={handlePayment} variant="contained" color="warning" sx={{ boxShadow: 'none' }}>
+            Go Premium
+          </Button>
+          </>
         )}
       </PerfectScrollbar>
     ),

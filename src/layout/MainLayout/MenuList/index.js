@@ -20,7 +20,6 @@ const MenuList = () => {
     const { layout } = useConfig();
     const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
 
-    const getDash = DashboardMenu();
     const handlerMenuItem = () => {
         const isFound = menuItem.items.some((element) => {
             if (element.id === 'dashboard') {
@@ -28,10 +27,6 @@ const MenuList = () => {
             }
             return false;
         });
-
-        if (getDash?.id !== undefined && !isFound) {
-            menuItem.items.splice(0, 0, getDash);
-        }
     };
 
     useEffect(() => {

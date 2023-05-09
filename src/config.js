@@ -27,9 +27,9 @@ export const AWS_API = {
 
 // basename: only at build time to set, and Don't add '/' at end off BASENAME for breadcrumbs, also Don't put only '/' use blank('') instead,
 // like '/berry-material-react/react/default'
-export const BASE_PATH = '';
+export const BASE_PATH = '/';
 
-export const DASHBOARD_PATH = '/dashboard/default';
+export const DASHBOARD_PATH = '/dashboard';
 
 export const HORIZONTAL_MAX_ITEM = 6;
 

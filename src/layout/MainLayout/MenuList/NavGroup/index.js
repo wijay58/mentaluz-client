@@ -176,27 +176,12 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId }) => {
                         subheader={
                             currentItem.title &&
                             drawerOpen && (
-                                <Typography variant="caption" sx={{ ...theme.typography.menuCaption }} display="block" gutterBottom>
-                                    {currentItem.title}
-                                    {currentItem.caption && (
-                                        <Typography
-                                            variant="caption"
-                                            sx={{ ...theme.typography.subMenuCaption }}
-                                            display="block"
-                                            gutterBottom
-                                        >
-                                            {currentItem.caption}
-                                        </Typography>
-                                    )}
-                                </Typography>
+                              <Divider sx={{ mt: 0.25, mb: 1.25 }} />
                             )
                         }
                     >
                         {items}
                     </List>
-
-                    {/* group divider */}
-                    {drawerOpen && <Divider sx={{ mt: 0.25, mb: 1.25 }} />}
                 </>
             ) : (
                 <List>
