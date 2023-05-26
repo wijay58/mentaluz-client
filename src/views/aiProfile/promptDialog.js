@@ -74,7 +74,7 @@ const PromptDialog = (props) => {
                   <InputLabel horizontal>
                     <Typography variant='h4'>{field.name}</Typography>
                   </InputLabel>
-                  <TextField defaultValue={prompt[field.value]} name={field.value} id="outlined-basic1" fullWidth />
+                  <TextField defaultValue={prompt ? prompt[field.value] : ""} name={field.value} id="outlined-basic1" fullWidth />
                 </Grid>
               ))}
             </Grid>

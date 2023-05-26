@@ -2,14 +2,14 @@ import { Grid, Typography, Card, CardContent, LinearProgress, TextField, Button,
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import Agent from 'views/dashboard/Default/components/agent';
 import Card2 from 'assets/images/cards/card-2.jpg';
-import Card3 from 'assets/images/cards/card-3.jpg';
+import Card1 from 'assets/images/cards/card-1.png';
 import { useTheme, styled } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
 import LargeDialog from './largeDialog';
 import PromptDialog from './promptDialog';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'store';
-import { getTasks, setEditPrompt, setUpdatePrompt, saveFav } from 'store/slices/agents';
+import { getTasks, setEditPrompt, setUpdatePrompt, saveFav, setUpdatePromptTask } from 'store/slices/agents';
 import ChatIcon from '@mui/icons-material/Chat';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import CreateIcon from '@mui/icons-material/Create';
@@ -30,10 +30,26 @@ const AIProfile = () => {
   const theme = useTheme();
   const { state } = useLocation();
   const dispatch = useDispatch();
-  const agent = {
-    name: state.agent.name,
-    image: state.agent.image
-  };
+  let agent;
+  if (!state.agent) {
+    agent = {
+      name: 'Agent1',
+      image: Card1
+    };
+  } else {
+    agent = {
+      name: state.agent.name,
+      image: state.agent.image
+    };
+  }
+
+  useEffect(() => {
+    if (state.task) {
+      dispatch(setUpdatePrompt(true));
+      dispatch(setEditPrompt(true));
+      dispatch(setUpdatePromptTask(state.task));
+    }
+  }, [state]);
 
   const groups = ["Youtube", "LinkedIn", "Instagram", "Facebook", "Twitter", "General"];
 

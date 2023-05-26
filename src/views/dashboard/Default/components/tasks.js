@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTheme } from '@mui/material/styles';
+import { useSelector, useDispatch } from 'store';
+import { useNavigate } from 'react-router-dom';
+import { getTasks } from 'store/slices/agents';
 import { Card, CardMedia, CardContent, Grid, Typography, Box, Button, IconButton } from "@mui/material";
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -7,19 +10,38 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Tasks = () => {
-  let taskList = [];
   const theme = useTheme();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const matches = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [allTasks, setAllTasks] = useState([]);
+  const tasks = useRef([]);
 
-  const defaultTaskList = [1, 2, 3, 4, 5, 6];
-  const expandedTaskList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+  const loadTasks = async (e) => {
+    const gotTasks = await dispatch(getTasks());
+    const first6Tasks = gotTasks.slice(0, 6);
+    setAllTasks(gotTasks);
+    tasks.current = first6Tasks;
+  };
+
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  const navigateTo = (task) => {
+    return () => {
+      navigate('/agent/aiProfile', { state: { task } });
+    };
+  };
 
   const renderTaskList = () => {
     if (isCollapsed) {
-      taskList = defaultTaskList;
+      const first6Tasks = allTasks.slice(0, 6);
+      tasks.current = first6Tasks;
     } else {
-      taskList = expandedTaskList;
+      const first18Tasks = allTasks.slice(0, 18);
+      tasks.current = first18Tasks;
     }
 
     return (
@@ -27,12 +49,13 @@ const Tasks = () => {
         <CardContent>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={3}>
-              {taskList.map((element) => {
+              {tasks.current.map((element) => {
                 return (
-                  <Grid xs={4} key={element} md={2} lg={2} item>
-                    <IconButton color="inherit" size='large'>
+                  <Grid direction='column' xs={4} key={element.createdAt} md={2} lg={2} item>
+                    <IconButton onClick={navigateTo(element)} color="inherit" size='large'>
                       <AssignmentIcon sx={{ fontSize: "35px" }} />
                     </IconButton>
+                    <Typography variant='body1'>{element.name}</Typography>
                   </Grid>
                 );
               })}
