@@ -71,11 +71,6 @@ const PersonalAccount = () => {
         setCurrency(event.target.value);
     };
 
-    const [experience, setExperience] = useState('Startup');
-    const handleChange2 = (event) => {
-        setExperience(event.target.value);
-    };
-
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12} md={6}>
@@ -111,22 +106,6 @@ const PersonalAccount = () => {
                                     defaultValue="I consider myself as a creative, professional and a flexible person. I can adapt with any kind of brief and design style"
                                 />
                             </Grid>
-                            <Grid item xs={12} md={6}>
-                                <TextField
-                                    id="outlined-select-experience"
-                                    select
-                                    fullWidth
-                                    label="Experience"
-                                    value={experience}
-                                    onChange={handleChange2}
-                                >
-                                    {experiences.map((option) => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                            </Grid>
                         </Grid>
                     </form>
                 </SubCard>
@@ -153,57 +132,6 @@ const PersonalAccount = () => {
                                     rows={3}
                                     defaultValue="3379  Monroe Avenue, Fort Myers, Florida(33912)"
                                 />
-                            </Grid>
-                        </Grid>
-                    </form>
-                </SubCard>
-            </Grid>
-            <Grid item xs={12} md={6}>
-                <SubCard title="Social Information">
-                    <form noValidate autoComplete="off">
-                        <Grid container alignItems="center" spacing={gridSpacing} sx={{ mb: 1.25 }}>
-                            <Grid item>
-                                <FacebookIcon />
-                            </Grid>
-                            <Grid item xs zeroMinWidth>
-                                <TextField fullWidth label="Facebook Profile Url" />
-                            </Grid>
-                            <Grid item>
-                                <AnimateButton>
-                                    <Button variant="contained" size="small" color="secondary">
-                                        Connect
-                                    </Button>
-                                </AnimateButton>
-                            </Grid>
-                        </Grid>
-                        <Grid container alignItems="center" spacing={gridSpacing} sx={{ mb: 1.25 }}>
-                            <Grid item>
-                                <TwitterIcon />
-                            </Grid>
-                            <Grid item xs zeroMinWidth>
-                                <TextField fullWidth label="Twitter Profile Url" />
-                            </Grid>
-                            <Grid item>
-                                <AnimateButton>
-                                    <Button variant="contained" size="small" color="secondary">
-                                        Connect
-                                    </Button>
-                                </AnimateButton>
-                            </Grid>
-                        </Grid>
-                        <Grid container alignItems="center" spacing={gridSpacing}>
-                            <Grid item>
-                                <LinkedInIcon />
-                            </Grid>
-                            <Grid item xs zeroMinWidth>
-                                <TextField fullWidth label="LinkedIn Profile Url" />
-                            </Grid>
-                            <Grid item>
-                                <AnimateButton>
-                                    <Button variant="contained" size="small" color="secondary">
-                                        Connect
-                                    </Button>
-                                </AnimateButton>
                             </Grid>
                         </Grid>
                     </form>

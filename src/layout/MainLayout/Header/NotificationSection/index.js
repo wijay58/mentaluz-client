@@ -147,20 +147,7 @@ const NotificationSection = () => {
                                                     <Grid item>
                                                         <Stack direction="row" spacing={2}>
                                                             <Typography variant="subtitle1">All Notification</Typography>
-                                                            <Chip
-                                                                size="small"
-                                                                label="01"
-                                                                sx={{
-                                                                    color: theme.palette.background.default,
-                                                                    bgcolor: theme.palette.warning.dark
-                                                                }}
-                                                            />
                                                         </Stack>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Typography component={Link} to="#" variant="subtitle2" color="primary">
-                                                            Mark as all read
-                                                        </Typography>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -172,41 +159,16 @@ const NotificationSection = () => {
                                                         overflowX: 'hidden'
                                                     }}
                                                 >
-                                                    <Grid container direction="column" spacing={2}>
-                                                        <Grid item xs={12}>
-                                                            <Box sx={{ px: 2, pt: 0.25 }}>
-                                                                <TextField
-                                                                    id="outlined-select-currency-native"
-                                                                    select
-                                                                    fullWidth
-                                                                    value={value}
-                                                                    onChange={handleChange}
-                                                                    SelectProps={{
-                                                                        native: true
-                                                                    }}
-                                                                >
-                                                                    {status.map((option) => (
-                                                                        <option key={option.value} value={option.value}>
-                                                                            {option.label}
-                                                                        </option>
-                                                                    ))}
-                                                                </TextField>
-                                                            </Box>
-                                                        </Grid>
-                                                        <Grid item xs={12} p={0}>
-                                                            <Divider sx={{ my: 0 }} />
-                                                        </Grid>
-                                                    </Grid>
                                                     <NotificationList />
                                                 </PerfectScrollbar>
                                             </Grid>
                                         </Grid>
-                                        <Divider />
+                                        {/* <Divider />
                                         <CardActions sx={{ p: 1.25, justifyContent: 'center' }}>
                                             <Button size="small" disableElevation>
                                                 View All
                                             </Button>
-                                        </CardActions>
+                                        </CardActions> */}
                                     </MainCard>
                                 )}
                             </Paper>

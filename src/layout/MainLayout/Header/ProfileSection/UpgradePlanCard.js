@@ -62,8 +62,8 @@ const UpgradePlanCard = () => {
               color={theme.palette.mode === 'dark' ? 'textSecondary' : 'grey.900'}
               sx={{ opacity: theme.palette.mode === 'dark' ? 1 : 0.6 }}
             >
-              70% discount for 1 years <br />
-              subscriptions.
+              Enjoy your premium benefits <br />
+              for the rest of the year.
             </Typography>
           </Grid>
           <Grid item>

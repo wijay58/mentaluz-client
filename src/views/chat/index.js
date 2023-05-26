@@ -90,17 +90,32 @@ const Chat = () => {
         <Typography variant="h2" sx={{ marginBottom: '10px' }}>
           Ai Specialist
         </Typography>
-        <Grid container spacing={3}>
+        <Grid container direction="row" justifyContent="center" alignItems="stretch" spacing={3}>
           <Grid item lg={3} md={6} xs={12}>
             <Card sx={{ boxShadow: theme.customShadows.primary, marginBottom: '2rem' }}>
-              <Agent agent={agent} height='28rem' icon style={{ left: '88%' }} />
+              <Agent agent={agent} height='20rem' icon style={{ left: '88%' }} />
+            </Card>
+            <Card sx={{ boxShadow: theme.customShadows.primary }}>
+              <CardContent>
+                <Typography variant="h4" sx={{ marginTop: '20px', marginBottom: '10px' }}>
+                  About Agent
+                </Typography>
+                <Typography variant="caption">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a libero mi. Suspendisse nec fermentum velit.
+                  Integer mattis nunc ut commodo dignissim. Praesent a nisl sed nisl aliquam malesuada sed at dui. Vestibulum
+                  vel sem rutrum lacus pharetra convallis. Pellentesque habitant morbi tristique senectus et netus et malesuada
+                  fames ac turpis egestas. Integer accumsan magna at tellus lacinia, sed aliquet lorem aliquam. Proin turpis
+                  nibh, tristique quis turpis ac, interdum pretium est. Aenean ligula dui, aliquam ac tempor ac, pulvinar
+                </Typography>
+              </CardContent>
             </Card>
           </Grid>
           <Grid item lg={9} md={6} xs={12}>
             <MainCard
               sx={{
                 bgcolor: theme.palette.mode === 'dark' ? 'dark.main' : 'grey.50',
-                boxShadow: theme.customShadows.primary
+                boxShadow: theme.customShadows.primary,
+                height: '100%'
               }}
             >
               <Grid container spacing={0.5}>
@@ -121,18 +136,16 @@ const Chat = () => {
                   <Divider sx={{ mt: theme.spacing(2) }} />
                 </Grid>
                 <PerfectScrollbar
-                  style={{ width: '100%', height: 'calc(100vh - 440px)', overflowX: 'hidden', minHeight: 525 }}
+                  style={{ width: '100%', height: 'calc(100vh - 20rem)', overflowX: 'hidden', minHeight: 640 }}
                 >
-                  <CardContent>
-                    <ChartHistory
-                      theme={theme}
-                      handleUserDetails={() => console.log('handleUserDetails')}
-                      handleDrawerOpen={() => console.log('handleUserDetails')}
-                      user={userData}
-                      data={data}
-                    />
-                    <span ref={scrollRef} />
-                  </CardContent>
+                  <ChartHistory
+                    theme={theme}
+                    handleUserDetails={() => console.log('handleUserDetails')}
+                    handleDrawerOpen={() => console.log('handleUserDetails')}
+                    user={userData}
+                    data={data}
+                  />
+                  <span ref={scrollRef} />
                 </PerfectScrollbar>
                 <Grid item xs={12}>
                   <Grid container spacing={1} alignItems="center">
