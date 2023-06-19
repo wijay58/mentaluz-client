@@ -9,7 +9,7 @@ import LargeDialog from './largeDialog';
 import PromptDialog from './promptDialog';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'store';
-import { getTasks, setEditPrompt, setUpdatePrompt, saveFav, setUpdatePromptTask } from 'store/slices/agents';
+import { getTasks, getTasksBySpecialist, setEditPrompt, setUpdatePrompt, saveFav, setUpdatePromptTask } from 'store/slices/agents';
 import ChatIcon from '@mui/icons-material/Chat';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import CreateIcon from '@mui/icons-material/Create';
@@ -34,16 +34,24 @@ const AIProfile = () => {
   if (!state.agent) {
     agent = {
       name: 'Agent1',
-      image: Card1
+      image: Card1,
+      id: '648f0452d0ee1b071806e4b4'
     };
   } else {
     agent = {
       name: state.agent.name,
-      image: state.agent.image
+      image: state.agent.imageUrl,
+      id: state.agent._id
     };
   }
 
+  const getTaskGroups = async () => {
+    const tasksgroups = await dispatch(getTasksBySpecialist(agent.id));
+    console.log(tasksgroups);
+  };
+
   useEffect(() => {
+    getTaskGroups();
     if (state.task) {
       dispatch(setUpdatePrompt(true));
       dispatch(setEditPrompt(true));

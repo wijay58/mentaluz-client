@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Grid, Typography, Card, CardContent, CardMedia, MobileStepper, Button } from '@mui/material';
 import Card1 from 'assets/images/cards/card-1.png';
 import Card2 from 'assets/images/cards/card-2.png';
@@ -12,55 +12,32 @@ import { useTheme } from '@mui/material/styles';
 import ReactCardFlip from 'react-card-flip';
 import Agent from 'views/dashboard/Default/components/agent';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'store';
+import { getAIAgents } from 'store/slices/agents';
+import { useSelector, useDispatch } from 'store';
 
 const AIAgents = () => {
   const [flipped, setFlipped] = useState(new Set());
+  const [agents, setAgents] = useState([]);
+  const [images] = useState([Card1, Card2, Card3, Card4, Card5, Card6]);
   const theme = useTheme();
+  const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.user);
 
-  const agents = [
-    {
-      name: 'Agent1',
-      image: Card1,
-      premium: false
-    },
-    {
-      name: 'Agent2',
-      image: Card2,
-      premium: true
-    },
-    {
-      name: 'Agent3',
-      image: Card3,
-      premium: false
-    },
-    {
-      name: 'Agent4',
-      image: Card4,
-      premium: true
-    },
-    {
-      name: 'Agent1',
-      image: Card5,
-      premium: false
-    },
-    {
-      name: 'Agent2',
-      image: Card6,
-      premium: true
-    },
-    {
-      name: 'Agent3',
-      image: Card7,
-      premium: true
-    },
-    {
-      name: 'Agent4',
-      image: Card8,
-      premium: false
-    },
-  ];
+  const getAgents = async () => {
+    const list = await dispatch(getAIAgents());
+    const tempList = JSON.parse(JSON.stringify(list));
+    tempList[0].image = Card1;
+    tempList[1].image = Card2;
+    tempList[2].image = Card3;
+    tempList[3].image = Card4;
+    tempList[4].image = Card5;
+    tempList[5].image = Card6;
+    setAgents(tempList);
+  };
+
+  useEffect(() => {
+    getAgents();
+  }, []);
 
   const handleEvent = function (id) {
     return (e) => {
@@ -83,7 +60,7 @@ const AIAgents = () => {
         </Typography>
         <Grid container spacing={2}>
           {agents.map((agent, i) => (
-            <Grid item xs={12} md={6} lg={3} sx={{ cursor: "pointer" }}>
+            <Grid item xs={12} md={6} lg={4} sx={{ cursor: "pointer" }}>
               {agent.premium && !userData.premium ? (
                 <Card sx={{ boxShadow: theme.customShadows.primary, opacity: 0.5 }}>
                   <Agent agent={agent} height='20rem' style={{ left: '86%' }} />

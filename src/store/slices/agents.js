@@ -15,7 +15,8 @@ const initialState = {
   updatePromptTask: null,
   task: null,
   prompt: null,
-  events: []
+  events: [],
+  agentList: []
 };
 
 const slice = createSlice({
@@ -60,6 +61,10 @@ const slice = createSlice({
 
     setUpdatePromptTask(state, action) {
       state.updatePromptTask = action.payload;
+    },
+
+    getAgentsSuccess(state, action) {
+      state.agentList = action.payload;
     },
   }
 });
@@ -130,6 +135,33 @@ export function getTasks(group) {
           group,
         }
       });
+      return response.data;
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function getTasksBySpecialist(specialist) {
+  return async () => {
+    try {
+      const response = await apiClient.get(`/tasks/specialist`, {
+        params: {
+          specialist,
+        }
+      });
+      return response.data;
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function getAIAgents() {
+  return async () => {
+    try {
+      const response = await apiClient.get(`/specialists`);
+      dispatch(slice.actions.getAgentsSuccess(response.data));
       return response.data;
     } catch (error) {
       dispatch(slice.actions.hasError(error));
