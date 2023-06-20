@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import Card1 from 'assets/images/cards/card-1.png';
 import Card2 from 'assets/images/cards/card-2.png';
@@ -13,64 +13,85 @@ import { useTheme } from '@mui/material/styles';
 import ReactCardFlip from 'react-card-flip';
 import Agent from './agent';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'store';
+import { useSelector, useDispatch } from 'store';
+import { getAIAgents } from 'store/slices/agents';
 
 const Agents = () => {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.user);
+  const [items, setItems] = useState([]);
 
-  const items = [
-    {
-      set: 1,
-      agents: [
-        {
-          name: 'Agent1',
-          image: Card1,
-          premium: false
-        },
-        {
-          name: 'Agent2',
-          image: Card2,
-          premium: true
-        },
-        {
-          name: 'Agent3',
-          image: Card3,
-          premium: false
-        },
-        {
-          name: 'Agent4',
-          image: Card4,
-          premium: true
-        },
-      ]
-    },
-    {
-      set: 2,
-      agents: [
-        {
-          name: 'Agent5',
-          image: Card5,
-          premium: false
-        },
-        {
-          name: 'Agent6',
-          image: Card6,
-          premium: true
-        },
-        {
-          name: 'Agent7',
-          image: Card7,
-          premium: true
-        },
-        {
-          name: 'Agent8',
-          image: Card8,
-          premium: false
-        },
-      ]
-    }
-  ];
+  const getAgents = async () => {
+    const list = await dispatch(getAIAgents());
+    const tempList = JSON.parse(JSON.stringify(list));
+    tempList[0].image = Card1;
+    tempList[1].image = Card2;
+    tempList[2].image = Card3;
+    tempList[3].image = Card4;
+    tempList[4].image = Card5;
+    tempList[5].image = Card6;
+    const first = tempList.slice(0, 3);
+    const second = tempList.slice(3, 6);
+    const sets = [
+      {
+        set: 1,
+        agents: first
+      },
+      {
+        set: 2,
+        agents: second
+      }
+    ];
+    setItems(sets);
+  };
+
+  useEffect(() => {
+    getAgents();
+  }, []);
+
+  // const items = [
+  //   {
+  //     set: 1,
+  //     agents: [
+  //       {
+  //         name: 'Agent1',
+  //         image: Card1,
+  //         premium: false
+  //       },
+  //       {
+  //         name: 'Agent2',
+  //         image: Card2,
+  //         premium: true
+  //       },
+  //       {
+  //         name: 'Agent3',
+  //         image: Card3,
+  //         premium: false
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     set: 2,
+  //     agents: [
+  //       {
+  //         name: 'Agent5',
+  //         image: Card5,
+  //         premium: false
+  //       },
+  //       {
+  //         name: 'Agent6',
+  //         image: Card6,
+  //         premium: true
+  //       },
+  //       {
+  //         name: 'Agent7',
+  //         image: Card7,
+  //         premium: true
+  //       }
+  //     ]
+  //   }
+  // ];
 
   function Item(props) {
     const [flipped, setFlipped] = useState(new Set());
@@ -96,7 +117,7 @@ const Agents = () => {
         <Box sx={{ flexGrow: 1 }}>
           <Grid Grid container spacing={2}>
             {agents.map((agent, i) => (
-              <Grid item xs={12} md={6} lg={3}>
+              <Grid item xs={12} md={6} lg={4}>
                 {agent.premium && !userData.premium ? (
                   <Card sx={{ boxShadow: theme.customShadows.primary, opacity: 0.5 }}>
                     <Agent agent={agent} height='20rem' style={{ left: '86%' }} />
@@ -105,10 +126,10 @@ const Agents = () => {
                   <Link style={{ textDecoration: 'none' }} to='/agent/aiProfile' state={{ agent }}>
                     <ReactCardFlip isFlipped={flipped.has(i)} flipDirection="horizontal">
                       <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseOver={handleClick(i)}>
-                        <Agent agent={agent} height='20rem' style={{ left: '82%' }} />
+                        <Agent agent={agent} height='20rem' style={{ left: '86%' }} />
                       </Card>
                       <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseLeave={handleClick(i)}>
-                        <CardContent sx={{ minHeight: '23.5rem', maxHeight: '23.5rem', overflow: 'auto' }}>
+                        <CardContent sx={{ minHeight: '22rem', maxHeight: '22rem', overflow: 'auto' }}>
                           <Grid container spacing={1}>
                             <Grid xs={12} item>
                               <Typography variant="h3" color='secondary.dark' sx={{ marginBottom: '8px', textAlign: 'center' }}>{agent.name}</Typography>
@@ -136,7 +157,7 @@ const Agents = () => {
 
   return (
     <Carousel
-      navButtonsAlwaysInvisible
+      navButtonsAlwaysInvisible={false}
       autoPlay={false}
     >
       {

@@ -142,10 +142,10 @@ export function getTasks(group) {
   };
 }
 
-export function getTasksBySpecialist(specialist) {
+export function getTaskGroupsBySpecialist(specialist) {
   return async () => {
     try {
-      const response = await apiClient.get(`/tasks/specialist`, {
+      const response = await apiClient.get(`/tasks/groups`, {
         params: {
           specialist,
         }

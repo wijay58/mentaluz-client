@@ -63,13 +63,13 @@ const AIAgents = () => {
             <Grid item xs={12} md={6} lg={4} sx={{ cursor: "pointer" }}>
               {agent.premium && !userData.premium ? (
                 <Card sx={{ boxShadow: theme.customShadows.primary, opacity: 0.5 }}>
-                  <Agent agent={agent} height='20rem' style={{ left: '86%' }} />
+                  <Agent agent={agent} height='20rem' style={{ left: '90%' }} />
                 </Card>
               ) : (
                 <Link style={{ textDecoration: 'none' }} to='/agent/aiProfile' state={{ agent }}>
                   <ReactCardFlip isFlipped={flipped.has(i)} flipDirection="horizontal">
                     <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseOver={handleEvent(i)}>
-                      <Agent agent={agent} height='20rem' style={{ left: '86%' }} />
+                      <Agent agent={agent} height='20rem' style={{ left: '90%' }} />
                     </Card>
                     <Card sx={{ boxShadow: theme.customShadows.primary }} onMouseLeave={handleEvent(i)}>
                       <CardContent sx={{ minHeight: '23.5rem', maxHeight: '23.5rem', overflow: 'auto' }}>

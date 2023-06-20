@@ -9,7 +9,7 @@ import LargeDialog from './largeDialog';
 import PromptDialog from './promptDialog';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'store';
-import { getTasks, getTasksBySpecialist, setEditPrompt, setUpdatePrompt, saveFav, setUpdatePromptTask } from 'store/slices/agents';
+import { getTasks, getTaskGroupsBySpecialist, setEditPrompt, setUpdatePrompt, saveFav, setUpdatePromptTask } from 'store/slices/agents';
 import ChatIcon from '@mui/icons-material/Chat';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import CreateIcon from '@mui/icons-material/Create';
@@ -24,6 +24,7 @@ import { Packer, Document, Paragraph, TextRun } from "docx";
 const AIProfile = () => {
   const [open, setOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [groups, setGroups] = useState([]);
   const [tasksLoading, setTasksLoading] = useState(false);
   // const [airesponse, setAiresponse] = useState("");
   const { response, responseLoading, updatePromptTask, task } = useSelector((state) => state.agents);
@@ -46,8 +47,8 @@ const AIProfile = () => {
   }
 
   const getTaskGroups = async () => {
-    const tasksgroups = await dispatch(getTasksBySpecialist(agent.id));
-    console.log(tasksgroups);
+    const tasksgroups = await dispatch(getTaskGroupsBySpecialist(agent.id));
+    setGroups(tasksgroups);
   };
 
   useEffect(() => {
@@ -58,8 +59,6 @@ const AIProfile = () => {
       dispatch(setUpdatePromptTask(state.task));
     }
   }, [state]);
-
-  const groups = ["Youtube", "LinkedIn", "Instagram", "Facebook", "Twitter", "General"];
 
   const BorderLinearProgress = styled(LinearProgress)(() => ({
     height: 15,
