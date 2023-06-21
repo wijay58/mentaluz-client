@@ -158,7 +158,7 @@ const Agents = () => {
   return (
     <Carousel
       navButtonsAlwaysInvisible={false}
-      autoPlay={false}
+      autoPlay
     >
       {
         items.map((item, i) => <Item key={i} item={item} />)

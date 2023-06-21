@@ -41,7 +41,7 @@ const AIProfile = () => {
   } else {
     agent = {
       name: state.agent.name,
-      image: state.agent.imageUrl,
+      image: state.agent.image,
       id: state.agent._id
     };
   }
