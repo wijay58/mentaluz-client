@@ -33,6 +33,8 @@ const Profile = Loadable(lazy(() => import('views/profile')));
 const AISpecialists = Loadable(lazy(() => import('views/aiProfile/landing')));
 const AIProfile = Loadable(lazy(() => import('views/aiProfile/index')));
 const Chat = Loadable(lazy(() => import('views/chat')));
+const Questionnaire = Loadable(lazy(() => import('views/questionnaire')));
+
 const Success = Loadable(lazy(() => import('views/stripe/paymentSuccess')));
 const Failed = Loadable(lazy(() => import('views/stripe/paymentFailed')));
 
@@ -50,6 +52,10 @@ const MainRoutes = {
         {
           path: 'user/profile',
           element: <Profile />
+        },
+        {
+          path: 'questionnaire',
+          element: <Questionnaire />
         },
         {
           path: 'agent/aiSpecialists',

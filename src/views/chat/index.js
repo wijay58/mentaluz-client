@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Grid, Typography, LinearProgress, Divider, CardContent, IconButton, TextField, Card } from '@mui/material';
+import { Grid, Typography, LinearProgress, Divider, CardContent, IconButton, TextField, Card, Backdrop } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import MainCard from 'ui-component/cards/MainCard';
 import Agent from 'views/dashboard/Default/components/agent';
@@ -19,6 +20,7 @@ const Chat = () => {
   const { chats } = useSelector((state) => state.chat);
   const [loading, setLoaing] = useState(false);
   const [data, setData] = useState([]);
+  const [personality, setPersonality] = useState(false);
   const [message, setMessage] = useState('');
   const [agent, setAgent] = useState({
     name: 'Default Agent',
@@ -67,6 +69,20 @@ const Chat = () => {
     setLoaing(false);
   };
 
+  const givePersonality = async (agent) => {
+    const data = {
+      conversation: chats,
+      message: `For the follwing session you are a ${agent.name} and answer my questions. When asked who you are reply with ${agent.name} 
+      and when asked what you do reply with ${agent.name}.Now just state what you do as ${agent.name}.`
+    };
+    setLoaing(true);
+    const response = await dispatch(chat(data));
+    dispatch(getUserChats(response.conversation));
+    setData((prevState) => [...prevState, response.newMessage]);
+    setLoaing(false);
+    setPersonality(true);
+  };
+
   const handleEnter = (event) => {
     if (event?.key !== 'Enter') {
       return;
@@ -79,6 +95,9 @@ const Chat = () => {
   useEffect(() => {
     if (state) {
       setAgent(state.agent);
+      givePersonality(state.agent);
+    } else {
+      setPersonality(true);
     }
   }, []);
 
@@ -86,6 +105,12 @@ const Chat = () => {
   const scrollRef = useRef();
   return (
     <Grid container spacing={6}>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={!personality}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Grid item xs={12}>
         <Typography variant="h2" sx={{ marginBottom: '10px' }}>
           Ai Specialist

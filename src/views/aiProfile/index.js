@@ -149,6 +149,12 @@ const AIProfile = () => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={groups.length === 0}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Grid item sm={4} md={4} xs={12}>
         <Typography variant="h2" sx={{ marginBottom: '10px' }}>
           Profile
