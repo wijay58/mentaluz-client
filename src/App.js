@@ -16,6 +16,7 @@ import { getDashboard } from 'store/slices/menu';
 
 // auth provider
 import { JWTProvider } from "./contexts/JWTContext";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // import { AWSCognitoProvider as AuthProvider } from 'contexts/AWSCognitoContext';
 // import { JWTProvider as AuthProvider } from 'contexts/JWTContext';
@@ -39,12 +40,14 @@ const App = () => {
       <RTLLayout>
         <Locales>
           <NavigationScroll>
-            <JWTProvider>
-              <>
-                <Routes />
-                <Snackbar />
-              </>
-            </JWTProvider>
+            <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+              <JWTProvider>
+                <>
+                  <Routes />
+                  <Snackbar />
+                </>
+              </JWTProvider>
+            </GoogleOAuthProvider>
           </NavigationScroll>
         </Locales>
       </RTLLayout>

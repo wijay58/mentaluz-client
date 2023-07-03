@@ -99,6 +99,20 @@ export const JWTProvider = ({ children }) => {
         });
     };
 
+    const googleLogin = async (credential) => {
+      const response = await apiClient.post('/users/googleLogin', { credential });
+      const { token, user } = response.data;
+      await sliceDispatch(getUserProfile(user));
+      setSession(token);
+      dispatch({
+          type: LOGIN,
+          payload: {
+              isLoggedIn: true,
+              user
+          }
+      });
+  };
+
     const register = async (email, password, firstName, lastName) => {
         // todo: this flow need to be recode as it not verified
         const id = chance.bb_pin();
@@ -143,7 +157,7 @@ export const JWTProvider = ({ children }) => {
     }
 
     return (
-        <JWTContext.Provider value={{ ...state, login, logout, register, resetPassword, updateProfile }}>{children}</JWTContext.Provider>
+        <JWTContext.Provider value={{ ...state, login, googleLogin, logout, register, resetPassword, updateProfile }}>{children}</JWTContext.Provider>
     );
 };
 
