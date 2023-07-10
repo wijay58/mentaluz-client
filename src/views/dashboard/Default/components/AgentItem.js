@@ -86,7 +86,7 @@ export const AgentItem = styled((props) => {
                                                 color: 'white'
                                             }}
                                         >
-                                            Ask
+                                            Profile
                                         </Button>
                                     </CardContent>
                                 </Card>
@@ -114,10 +114,6 @@ export const AgentItem = styled((props) => {
             opacity: 0;
         }
 
-        &__flip {
-            position: absolute;
-        }
-
         &__container {
             position: absolute;
             height: 100%;
@@ -130,7 +126,7 @@ export const AgentItem = styled((props) => {
 
         &__link {
             width: fit-content;
-            min-width: 80px;
+            min-width: 120px;
         }
     }
 `;
