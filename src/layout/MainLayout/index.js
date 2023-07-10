@@ -26,16 +26,17 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.shorter + 200
         }),
+        [theme.breakpoints.up('md')]: {
+            marginLeft: layout === LAYOUT_CONST.VERTICAL_LAYOUT ? -(drawerWidth - 72) : '20px',
+            width: `calc(100% - ${drawerWidth}px)`,
+            marginTop: layout === 'horizontal' ? 135 : 88
+        },
+
         [theme.breakpoints.down('lg')]: {
             marginLeft: '20px',
             width: `calc(100% - ${drawerWidth}px)`,
             padding: '16px',
             marginTop: 88
-        },
-        [theme.breakpoints.up('md')]: {
-            marginLeft: layout === LAYOUT_CONST.VERTICAL_LAYOUT ? -(drawerWidth - 72) : '20px',
-            width: `calc(100% - ${drawerWidth}px)`,
-            marginTop: layout === 'horizontal' ? 135 : 88
         },
         [theme.breakpoints.down('sm')]: {
             marginLeft: '10px',
