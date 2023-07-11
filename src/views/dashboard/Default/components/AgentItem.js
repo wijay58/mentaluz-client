@@ -106,7 +106,6 @@ export const AgentItem = styled((props) => {
         height: 100%;
         cursor: pointer;
         position: relative;
-        padding-bottom: 20px;
 
         &__placeholder {
             visibility: hidden;

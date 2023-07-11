@@ -16,7 +16,7 @@ const Tasks = () => {
     const [allTasks, setAllTasks] = useState([]);
     const tasks = useRef([]);
 
-    const loadTasks = async (e) => {
+    const loadTasks = async () => {
         const gotTasks = await dispatch(getTasks());
         const first6Tasks = gotTasks.slice(0, 6);
         setAllTasks(gotTasks);
