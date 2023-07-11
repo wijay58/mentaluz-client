@@ -191,3 +191,20 @@
 .ReactModal__Overlay {
     z-index: 99999 !important;
 }
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    visibility: hidden;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar:window-inactive {
+    visibility: hidden;
+}

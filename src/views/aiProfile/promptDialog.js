@@ -1,20 +1,10 @@
 import React from 'react';
-import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    Grid,
-    IconButton,
-    TextField,
-    Button,
-    DialogActions,
-    InputLabel,
-    Typography
-} from '@mui/material';
+import { Button, DialogActions, DialogContent, DialogTitle, Grid, IconButton, InputLabel, TextField, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'store';
-import { youtube, setLoading, setEditPrompt, setLastPrompt, setUpdatePromptTask } from 'store/slices/agents';
+import { setEditPrompt, setLastPrompt, setLoading, setUpdatePromptTask, youtube } from 'store/slices/agents';
 import { styled } from '@mui/material/styles';
+import { Dialog } from './Dialog';
 
 const PromptDialog = styled((props) => {
     const { setModalClose, className } = props;

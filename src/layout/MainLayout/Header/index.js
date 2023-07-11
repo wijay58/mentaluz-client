@@ -7,7 +7,6 @@ import LAYOUT_CONST from 'constant';
 import useConfig from 'hooks/useConfig';
 import LogoSection from '../LogoSection';
 import SearchSection from './SearchSection';
-import MobileSection from './MobileSection';
 import ProfileSection from './ProfileSection';
 import NotificationSection from './NotificationSection';
 
@@ -82,7 +81,7 @@ const Header = () => {
               </Box> */}
 
             {/* notification & profile */}
-              <SearchSection />
+            <SearchSection />
             <NotificationSection />
             <ProfileSection />
 

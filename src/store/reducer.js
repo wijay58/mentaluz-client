@@ -16,6 +16,7 @@ import agentsReducer from './slices/agents';
 import cartReducer from './slices/cart';
 import kanbanReducer from './slices/kanban';
 import menuReducer from './slices/menu';
+import { api } from './services';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -38,7 +39,8 @@ const reducer = combineReducers({
     mail: mailReducer,
     user: userReducer,
     agents: agentsReducer,
-    menu: menuReducer
+    menu: menuReducer,
+    [api.reducerPath]: api.reducer
 });
 
 export default reducer;

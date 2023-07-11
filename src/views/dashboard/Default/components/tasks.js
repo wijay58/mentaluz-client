@@ -1,31 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { useDispatch } from 'store';
 import { useNavigate } from 'react-router-dom';
-import { getTasks } from 'store/slices/agents';
 import { Box, Button, Card, CardContent, Grid, IconButton, Typography } from '@mui/material';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { tasksApi } from '../../../../store/services';
 
 const Tasks = () => {
     const theme = useTheme();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const [isCollapsed, setIsCollapsed] = useState(true);
-    const [allTasks, setAllTasks] = useState([]);
-    const tasks = useRef([]);
 
-    const loadTasks = async () => {
-        const gotTasks = await dispatch(getTasks());
-        const first6Tasks = gotTasks.slice(0, 6);
-        setAllTasks(gotTasks);
-        tasks.current = first6Tasks;
-    };
+    const { data: allTasks = [] } = tasksApi.useGetTasksQuery();
 
-    useEffect(() => {
-        loadTasks();
-    }, []);
+    const tasks = useRef(allTasks.slice(0, 6));
 
     const navigateTo = (task) => {
         return () => {
