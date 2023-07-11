@@ -66,7 +66,6 @@ const LargeDialog = styled((props) => {
                                 >
                                     {task.name}
                                 </Button>
-                                {/* <Typography variant="caption">{task.text}</Typography> */}
                             </Grid>
                         ))}
                     </Grid>
