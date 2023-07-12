@@ -2,14 +2,15 @@ import React from 'react';
 import { Button, DialogActions, DialogContent, DialogTitle, Grid, IconButton, InputLabel, TextField, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'store';
-import { setEditPrompt, setLastPrompt, setLoading, setUpdatePromptTask, youtube } from 'store/slices/agents';
+import { setEditPrompt, setLastPrompt, setLoading, setUpdatePromptTask } from 'store/slices/agents';
 import { styled } from '@mui/material/styles';
 import { Dialog } from './Dialog';
+import { usePromptDialog } from './hooks/usePromptDialog';
 
 const PromptDialog = styled((props) => {
     const { setModalClose, className } = props;
-    const { editPrompt, task, prompt, updatePrompt, updatePromptTask, error } = useSelector((state) => state.agents);
-    console.log('=>(promptDialog.js) error\n', error);
+    const { editPrompt, task, prompt, updatePrompt, updatePromptTask } = useSelector((state) => state.agents);
+    const { getAgentAdvice } = usePromptDialog();
 
     const { name: taskName } = task ?? updatePromptTask ?? {};
 
@@ -46,8 +47,7 @@ const PromptDialog = styled((props) => {
         setModalClose(false);
         dispatch(setLoading(true));
 
-        const res = await dispatch(youtube(data));
-        console.log('=>(promptDialog.js) res\n', res);
+        await getAgentAdvice(data);
 
         dispatch(setLoading(false));
     };

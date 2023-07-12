@@ -7,6 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { useDispatch, useSelector } from 'store';
 import { closeSnackbar } from 'store/slices/snackbar';
+import { styled } from '@mui/material/styles';
 
 // animation function
 function TransitionSlideLeft(props) {
@@ -41,7 +42,9 @@ const animation = {
 
 // ==============================|| SNACKBAR ||============================== //
 
-const Snackbar = () => {
+const Snackbar = styled((props) => {
+    const { className } = props;
+
     const dispatch = useDispatch();
     const snackbar = useSelector((state) => state.snackbar);
     const { actionButton, anchorOrigin, alert, close, message, open, transition, variant } = snackbar;
@@ -54,67 +57,74 @@ const Snackbar = () => {
     };
 
     return (
-        <>
-            {/* default snackbar */}
-            {variant === 'default' && (
-                <MuiSnackbar
-                    anchorOrigin={anchorOrigin}
-                    open={open}
-                    autoHideDuration={6000}
-                    onClose={handleClose}
-                    message={message}
-                    TransitionComponent={animation[transition]}
-                    action={
-                        <>
-                            <Button color="secondary" size="small" onClick={handleClose}>
-                                UNDO
-                            </Button>
-                            <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose} sx={{ mt: 0.25 }}>
-                                <CloseIcon fontSize="small" />
-                            </IconButton>
-                        </>
-                    }
-                />
-            )}
-
-            {/* alert snackbar */}
-            {variant === 'alert' && (
-                <MuiSnackbar
-                    TransitionComponent={animation[transition]}
-                    anchorOrigin={anchorOrigin}
-                    open={open}
-                    autoHideDuration={6000}
-                    onClose={handleClose}
-                >
-                    <Alert
-                        variant={alert.variant}
-                        color={alert.color}
+        <div className={className}>
+            <div className="snackbar">
+                .snackbar__container
+                {/* default snackbar */}
+                {variant === 'default' && (
+                    <MuiSnackbar
+                        anchorOrigin={anchorOrigin}
+                        open={open}
+                        autoHideDuration={6000}
+                        onClose={handleClose}
+                        message={message}
+                        TransitionComponent={animation[transition]}
                         action={
                             <>
-                                {actionButton !== false && (
-                                    <Button size="small" onClick={handleClose} sx={{ color: 'background.paper' }}>
-                                        UNDO
-                                    </Button>
-                                )}
-                                {close !== false && (
-                                    <IconButton sx={{ color: 'background.paper' }} size="small" aria-label="close" onClick={handleClose}>
-                                        <CloseIcon fontSize="small" />
-                                    </IconButton>
-                                )}
+                                <Button color="secondary" size="small" onClick={handleClose}>
+                                    UNDO
+                                </Button>
+                                <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose} sx={{ mt: 0.25 }}>
+                                    <CloseIcon fontSize="small" />
+                                </IconButton>
                             </>
                         }
-                        sx={{
-                            ...(alert.variant === 'outlined' && {
-                                bgcolor: 'background.paper'
-                            })
-                        }}
+                    />
+                )}
+                {/* alert snackbar */}
+                {variant === 'alert' && (
+                    <MuiSnackbar
+                        TransitionComponent={animation[transition]}
+                        anchorOrigin={anchorOrigin}
+                        open={open}
+                        autoHideDuration={6000}
+                        onClose={handleClose}
                     >
-                        {message}
-                    </Alert>
-                </MuiSnackbar>
-            )}
-        </>
+                        <Alert
+                            variant={alert.variant}
+                            color={alert.color}
+                            action={
+                                <div>
+                                    {actionButton !== false && (
+                                        <Button size="small" onClick={handleClose} sx={{ color: 'background.paper' }}>
+                                            UNDO
+                                        </Button>
+                                    )}
+                                    {close !== false && (
+                                        <IconButton
+                                            sx={{ color: 'background.paper' }}
+                                            size="small"
+                                            aria-label="close"
+                                            onClick={handleClose}
+                                        >
+                                            <CloseIcon fontSize="small" />
+                                        </IconButton>
+                                    )}
+                                </div>
+                            }
+                            sx={{
+                                ...(alert.variant === 'outlined' && {
+                                    bgcolor: 'background.paper'
+                                })
+                            }}
+                        >
+                            {message}
+                        </Alert>
+                    </MuiSnackbar>
+                )}
+            </div>
+        </div>
     );
-};
+})``;
 
 export default Snackbar;

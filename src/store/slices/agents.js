@@ -184,13 +184,16 @@ export function youtube(props) {
     const { data, task } = props;
     return async () => {
         try {
-            throw new Error('error message');
+            const response = await apiClient.post(`/agents/${task}`, data);
+            const res = response.data.response;
 
-            // const response = await apiClient.post(`/agents/${task}`, data);
-            // const res = response.data.response;
-            // dispatch(slice.actions.getPromptSuccess(res));
+            dispatch(slice.actions.getPromptSuccess(res));
+
+            return response;
         } catch (error) {
             dispatch(slice.actions.hasError(error));
+
+            return error;
         }
     };
 }
