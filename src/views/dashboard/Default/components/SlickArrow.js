@@ -9,7 +9,7 @@ export const SlickArrow = styled((props) => {
             <button
                 type="button"
                 className="button"
-                style={{ ...style, display: 'flex', backgroundColor: 'black', filter: 'brightness(120%)', opacity: 0.4 }}
+                style={{ ...style, display: 'flex', backgroundColor: 'black', filter: 'brightness(120%)' }}
                 onClick={onClick}
             >
                 <ArrowBackIosNewRoundedIcon className="icon" />
@@ -17,11 +17,21 @@ export const SlickArrow = styled((props) => {
         </div>
     );
 })`
-    height: 100%;
-    width: 50px;
-    display: flex;
+    height: 100% !important;
+    width: 50px !important;
+    display: flex !important;
     align-items: center;
     justify-content: center;
+
+    &::before {
+        content: unset !important;
+    }
+
+    &:hover .button {
+        transition: all 0.2s ease-in-out;
+        opacity: 0.4;
+        pointer-events: unset;
+    }
 
     .button {
         height: 40px;
@@ -31,10 +41,9 @@ export const SlickArrow = styled((props) => {
         justify-content: center;
         border: unset;
         cursor: pointer;
-    }
-
-    &::before {
-        content: unset !important;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.2s ease-in-out;
     }
 
     .icon {
