@@ -29,6 +29,7 @@ const AIProfile = () => {
     const [tasksLoading, setTasksLoading] = useState(false);
     // const [airesponse, setAiresponse] = useState("");
     const { response, responseLoading, updatePromptTask, task } = useSelector((state) => state.agents);
+
     const theme = useTheme();
     const { state } = useLocation();
     const dispatch = useDispatch();

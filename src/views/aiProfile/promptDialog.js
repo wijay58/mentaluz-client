@@ -8,7 +8,8 @@ import { Dialog } from './Dialog';
 
 const PromptDialog = styled((props) => {
     const { setModalClose, className } = props;
-    const { editPrompt, task, prompt, updatePrompt, updatePromptTask } = useSelector((state) => state.agents);
+    const { editPrompt, task, prompt, updatePrompt, updatePromptTask, error } = useSelector((state) => state.agents);
+    console.log('=>(promptDialog.js) error\n', error);
 
     const { name: taskName } = task ?? updatePromptTask ?? {};
 
@@ -44,7 +45,10 @@ const PromptDialog = styled((props) => {
         dispatch(setLastPrompt(fields));
         setModalClose(false);
         dispatch(setLoading(true));
-        await dispatch(youtube(data));
+
+        const res = await dispatch(youtube(data));
+        console.log('=>(promptDialog.js) res\n', res);
+
         dispatch(setLoading(false));
     };
 
