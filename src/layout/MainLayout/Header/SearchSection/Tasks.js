@@ -1,12 +1,19 @@
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../../../constant';
+import { ROUTES } from 'constant';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { Typography } from '@mui/material';
 import * as React from 'react';
+import { specialistsApi } from 'store/services';
 
 export const Tasks = styled((props) => {
     const { className, tasks, onClick } = props;
+
+    const { data: agents = [] } = specialistsApi.useGetSpecialistsQuery();
+
+    const getAgentById = (id) => {
+        return agents.find(({ _id }) => _id === id);
+    };
 
     return (
         <div className={className}>
@@ -14,11 +21,12 @@ export const Tasks = styled((props) => {
                 <div className="tasks__container">
                     <ul className="tasks__list">
                         {tasks.map((task) => {
-                            const { _id, name } = task;
+                            const { _id, name, specialist } = task;
+                            const agent = getAgentById(specialist);
 
                             return (
                                 <li key={_id} className="tasks__item">
-                                    <Link to={ROUTES.aiProfile} state={{ task }} onClick={onClick} className="tasks__link">
+                                    <Link to={ROUTES.aiProfile} state={{ task, agent }} onClick={onClick} className="tasks__link">
                                         <AssignmentIcon sx={{ fontSize: '25px' }} />
                                         <Typography>{name}</Typography>
                                     </Link>

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
@@ -12,6 +11,7 @@ import PopupState from 'material-ui-popup-state';
 import { IconSearch } from '@tabler/icons';
 import { shouldForwardProp } from '@mui/system';
 import { SearchDialog } from './SearchDialog';
+import { useSearchSection } from './hooks/useSearchSection';
 
 // styles
 const PopperStyle = styled(Popper, { shouldForwardProp })(({ theme }) => ({
@@ -105,16 +105,7 @@ MobileSearch.propTypes = {
 const SearchSection = styled((props) => {
     const { className } = props;
     const theme = useTheme();
-
-    const [isDialogOpened, setIsDialogOpened] = useState(false);
-
-    const handleClose = () => {
-        setIsDialogOpened(false);
-    };
-
-    const handleOpen = () => {
-        setIsDialogOpened(true);
-    };
+    const { handleClose, handleOpen, isDialogOpened } = useSearchSection();
 
     return (
         <div className={className}>
@@ -135,10 +126,7 @@ const SearchSection = styled((props) => {
                                     color: theme.palette.mode === 'dark' ? theme.palette.grey[800] : theme.palette.secondary.light
                                 }
                             }}
-                            // ref={anchorRef}
-                            // aria-controls={open ? 'menu-list-grow' : undefined}
                             aria-haspopup="true"
-                            // onClick={handleToggle}
                             color="inherit"
                         >
                             <IconSearch stroke={1.5} size="20px" />

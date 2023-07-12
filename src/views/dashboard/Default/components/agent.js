@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 const Agent = (props) => {
     const { agent, height, icon, style } = props;
+
     const [holo, setHolo] = useState(true);
     const toggleStar = () => {
         setHolo(!holo);

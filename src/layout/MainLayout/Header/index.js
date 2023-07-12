@@ -34,6 +34,7 @@ const Header = () => {
                 sx={{
                     width: 228,
                     display: 'flex',
+                    alignItems: 'center',
                     [theme.breakpoints.down('md')]: {
                         width: 'auto'
                     }
@@ -81,6 +82,7 @@ const Header = () => {
               </Box> */}
 
             {/* notification & profile */}
+
             <SearchSection />
             <NotificationSection />
             <ProfileSection />
