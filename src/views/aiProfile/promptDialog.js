@@ -10,7 +10,7 @@ const PromptDialog = styled((props) => {
     const { setModalClose, className } = props;
     const { editPrompt, task, prompt, updatePrompt, updatePromptTask } = useSelector((state) => state.agents);
 
-    const { name: taskName } = task ?? {};
+    const { name: taskName } = task ?? updatePromptTask ?? {};
 
     const dispatch = useDispatch();
 

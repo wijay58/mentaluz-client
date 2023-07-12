@@ -81,6 +81,7 @@ const Header = () => {
               </Box> */}
 
             {/* notification & profile */}
+
             <SearchSection />
             <NotificationSection />
             <ProfileSection />
