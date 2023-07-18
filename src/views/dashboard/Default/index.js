@@ -67,9 +67,6 @@ const Dashboard = styled((props) => {
                         <Grid item xs={12} sx={{ marginBottom: '2rem' }}>
                             <BusinessGrowth />
                         </Grid>
-                        <Grid item xs={12}>
-                            <StatChart />
-                        </Grid>
                     </Grid>
                 </Grid>
             </div>
