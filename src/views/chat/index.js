@@ -18,6 +18,7 @@ const Chat = () => {
     const dispatch = useDispatch();
     const { userData } = useSelector((state) => state.user);
     const { chats } = useSelector((state) => state.chat);
+
     const [loading, setLoaing] = useState(false);
     const [data, setData] = useState([]);
     const [personality, setPersonality] = useState(false);
