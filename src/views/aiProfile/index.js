@@ -18,9 +18,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { openSnackbar } from 'store/slices/snackbar';
 import CircularProgress from '@mui/material/CircularProgress';
 import { saveAs } from 'file-saver';
-import * as Docx from 'docx';
-
-const { Packer, Document, Paragraph, TextRun } = Docx;
+import { Packer, Document, Paragraph, TextRun } from "docx";
 
 const AIProfile = () => {
     const [open, setOpen] = useState(false);
