@@ -59,7 +59,6 @@ const Snackbar = styled((props) => {
     return (
         <div className={className}>
             <div className="snackbar">
-                .snackbar__container
                 {/* default snackbar */}
                 {variant === 'default' && (
                     <MuiSnackbar

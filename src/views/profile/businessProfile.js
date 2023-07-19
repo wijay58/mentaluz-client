@@ -51,11 +51,12 @@ const Personal = () => {
           </Card>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h2" sx={{ marginTop: '20px', marginBottom: '10px' }}>
+          {/* <Typography variant="h2" sx={{ marginTop: '20px', marginBottom: '10px' }}>
             Affiliate Link
-          </Typography>
+          </Typography> */}
+          <Notifications />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <SubCard sx={{ boxShadow: theme.customShadows.primary }} contentSX={{ textAlign: 'left' }}>
             <Grid container alignItems='center' spacing={2}>
               <Grid item xs={12} md={6} lg={9}>
@@ -89,11 +90,10 @@ const Personal = () => {
             Members
           </Typography>
           <Members />
-        </Grid>
+        </Grid> */}
       </Grid>
       <Grid item sm={6} md={6} xs={12}>
         <Business />
-        <Notifications />
       </Grid>
     </Grid>
   );

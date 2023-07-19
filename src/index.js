@@ -18,6 +18,7 @@ import { ConfigProvider } from 'contexts/ConfigContext';
 
 // style + assets
 import 'assets/scss/style.scss';
+import { StrictMode } from 'react';
 
 // ==============================|| REACT DOM RENDER  ||============================== //
 
@@ -28,7 +29,9 @@ root.render(
         <PersistGate loading={null} persistor={persister}>
             <ConfigProvider>
                 <BrowserRouter basename={BASE_PATH}>
+                  <StrictMode>
                     <App />
+                  </StrictMode>
                 </BrowserRouter>
             </ConfigProvider>
         </PersistGate>

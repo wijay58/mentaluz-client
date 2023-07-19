@@ -40,12 +40,30 @@ const PagesContactUS = Loadable(lazy(() => import('views/pages/contact-us')));
 const PagesFaqs = Loadable(lazy(() => import('views/pages/saas-pages/Faqs')));
 const PagesPrivacyPolicy = Loadable(lazy(() => import('views/pages/saas-pages/PrivacyPolicy')));
 
+// Mentaluz Pages
+const ContactUs = Loadable(lazy(() => import('views/pages/mentaluz-pages/contact')));
+const PrivacyPolicy = Loadable(lazy(() => import('views/pages/mentaluz-pages/privacy')));
+const Terms = Loadable(lazy(() => import('views/pages/mentaluz-pages/terms')));
+
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
 const AuthenticationRoutes = {
     path: '/',
     element: <MinimalLayout />,
     children: [
+        // Mentaluz Pages
+        {
+          path: '/pages/contactus',
+          element: <ContactUs />
+        },
+        {
+          path: '/pages/terms',
+          element: <Terms />
+        },
+        {
+          path: '/pages/privacy',
+          element: <PrivacyPolicy />
+        },
         {
             path: '/pages/login/login1',
             element: <AuthLogin1 />

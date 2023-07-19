@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
@@ -150,6 +150,7 @@ const MainLayout = () => {
                 </Container>
                 <div style={{ display: 'flex', justifyContent: 'end', marginTop: '1rem' }} className="footer">
                     <Grid item>
+                        <Link to="/pages/contactus" target="_blank">
                         <Typography
                             color="gray"
                             style={{ marginRight: '8px', cursor: 'pointer', textDecoration: 'underline' }}
@@ -157,8 +158,10 @@ const MainLayout = () => {
                         >
                             Contact Us
                         </Typography>
+                        </Link>
                     </Grid>
                     <Grid item>
+                      <Link to="/pages/terms" target="_blank">
                         <Typography
                             color="gray"
                             style={{ marginRight: '8px', cursor: 'pointer', textDecoration: 'underline' }}
@@ -166,8 +169,10 @@ const MainLayout = () => {
                         >
                             Terms & Conditions
                         </Typography>
+                      </Link>
                     </Grid>
                     <Grid item>
+                      <Link to="/pages/privacy" target="_blank">
                         <Typography
                             color="gray"
                             style={{ marginRight: '8px', cursor: 'pointer', textDecoration: 'underline' }}
@@ -175,6 +180,7 @@ const MainLayout = () => {
                         >
                             Privacy Policy
                         </Typography>
+                      </Link>
                     </Grid>
                 </div>
             </Main>

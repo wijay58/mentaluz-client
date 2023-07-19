@@ -118,7 +118,7 @@ const Chat = () => {
                         <Card sx={{ boxShadow: theme.customShadows.primary, marginBottom: '2rem' }}>
                             <Agent agent={agent} height="20rem" icon style={{ left: '88%' }} />
                         </Card>
-                        <Card sx={{ boxShadow: theme.customShadows.primary }}>
+                        <Card sx={{ boxShadow: theme.customShadows.primary, display: { xs: 'none', sm: 'none', md: 'block' } }}>
                             <CardContent>
                                 <Typography variant="h4" sx={{ marginTop: '20px', marginBottom: '10px' }}>
                                     About Agent
