@@ -2,7 +2,7 @@ import { memo, useEffect, useMemo, useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Box, Button, Divider, Drawer, useMediaQuery } from '@mui/material';
+import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -80,7 +80,7 @@ const Sidebar = () => {
     const Names = () => {
         return (
             <>
-                {user ? <h3 style={{ textAlign: 'center' }}>{`${user.firstname} ${user.lastname}`}</h3> : <></>}
+                {user ? <Typography variant='h4' style={{ textAlign: 'center', marginTop: '10px', marginBottom: '10px' }}>{`${user.firstname} ${user.lastname}`}</Typography> : <></>}
                 <Button variant="text" style={{ textAlign: 'center' }} onClick={handleLogout}>
                     Logout
                 </Button>

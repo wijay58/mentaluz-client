@@ -8,7 +8,8 @@ import { insertChat } from 'store/slices/chat';
 
 const initialState = {
     error: null,
-    response: '',
+    agentResponse: '',
+    questionnaireResponse: '',
     responseLoading: false,
     editPrompt: false,
     updatePrompt: false,
@@ -35,7 +36,11 @@ const slice = createSlice({
 
         // GET RESPONSE
         getPromptSuccess(state, action) {
-            state.response = action.payload;
+            state.agentResponse = action.payload;
+        },
+
+        getPromptSuccessQuestionnaire(state, action) {
+          state.questionnaireResponse = action.payload;
         },
 
         // SET LOADING
@@ -173,6 +178,18 @@ export function saveFav(data) {
     return async () => {
         try {
             const response = await apiClient.post(`/Favorites`, data);
+            return response.data;
+        } catch (error) {
+            dispatch(slice.actions.hasError(error));
+        }
+    };
+}
+
+export function questionnaire(data) {
+    return async () => {
+        try {
+            const response = await apiClient.post(`/questions/questionnaire`, { indices: data });
+            dispatch(slice.actions.getPromptSuccessQuestionnaire(response.data));
             return response.data;
         } catch (error) {
             dispatch(slice.actions.hasError(error));

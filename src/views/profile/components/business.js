@@ -15,7 +15,12 @@ const Business = () => {
   const [businessText, setBusinessText] = useState(userData.businessDescription);
 
   const updateBusinessText = async () => {
-    dispatch(updateUserProfile({ businessDescription: businessText }));
+    if (businessText === "") {
+      setBusinessText(userData.businessDescription);
+      return;
+    } else {
+      dispatch(updateUserProfile({ businessDescription: businessText }));
+    }
   };
 
   const handleKeyDown = (event, value) => {

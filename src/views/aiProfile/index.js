@@ -1,4 +1,5 @@
-import { Backdrop, Button, Card, CardContent, Grid, IconButton, LinearProgress, TextField, Tooltip, Typography } from '@mui/material';
+import { Backdrop, Button, Card, CardContent, Grid, LinearProgress, Typography } from '@mui/material';
+import ResponseBox from './components/responseBox';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import Agent from 'views/dashboard/Default/components/agent';
 import Card1 from 'assets/images/cards/card-1.png';
@@ -8,25 +9,15 @@ import LargeDialog from './largeDialog';
 import PromptDialog from './promptDialog';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'store';
-import { getTaskGroupsBySpecialist, getTasks, saveFav, setEditPrompt, setUpdatePrompt, setUpdatePromptTask } from 'store/slices/agents';
-import ChatIcon from '@mui/icons-material/Chat';
-import ContentPasteIcon from '@mui/icons-material/ContentPaste';
-import CreateIcon from '@mui/icons-material/Create';
-import StarIcon from '@mui/icons-material/Star';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { openSnackbar } from 'store/slices/snackbar';
+import { getTaskGroupsBySpecialist, getTasks, setEditPrompt, setUpdatePrompt, setUpdatePromptTask } from 'store/slices/agents';
 import CircularProgress from '@mui/material/CircularProgress';
-import { saveAs } from 'file-saver';
-import { Packer, Document, Paragraph, TextRun } from "docx";
 
 const AIProfile = () => {
     const [open, setOpen] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [groups, setGroups] = useState([]);
     const [tasksLoading, setTasksLoading] = useState(false);
-    // const [airesponse, setAiresponse] = useState("");
-    const { response, responseLoading, updatePromptTask, task } = useSelector((state) => state.agents);
+    const { responseLoading } = useSelector((state) => state.agents);
 
     const theme = useTheme();
     const { state } = useLocation();
@@ -74,56 +65,6 @@ const AIProfile = () => {
         setTasks(gotTasks);
         setOpen(true);
         setTasksLoading(false);
-    };
-
-    const editPrompt = () => {
-        if (updatePromptTask) {
-            dispatch(setUpdatePrompt(true));
-            dispatch(setEditPrompt(true));
-        }
-    };
-
-    const saveFavorite = async () => {
-        if (task) {
-            const data = {
-                task,
-                response
-            };
-            await dispatch(saveFav(data));
-            dispatch(
-                openSnackbar({
-                    open: true,
-                    message: 'Saved to Favorites',
-                    variant: 'alert',
-                    alert: {
-                        color: 'success'
-                    },
-                    close: false,
-                    anchorOrigin: { vertical: 'top', horizontal: 'right' },
-                    transition: 'SlideLeft'
-                })
-            );
-        }
-    };
-
-    const createDoc = () => {
-        if (response) {
-            const doc = new Document({
-                sections: [
-                    {
-                        properties: {},
-                        children: [
-                            new Paragraph({
-                                children: [new TextRun({ text: response })]
-                            })
-                        ]
-                    }
-                ]
-            });
-            Packer.toBlob(doc).then((blob) => {
-                saveAs(blob, 'response.docx');
-            });
-        }
     };
 
     // let i = -1;
@@ -201,78 +142,7 @@ const AIProfile = () => {
                 <Typography variant="h2" sx={{ marginTop: '1.5rem', marginBottom: '1rem' }}>
                     Response
                 </Typography>
-                <Card sx={{ boxShadow: theme.customShadows.primary, marginBottom: '2rem' }}>
-                    <CardContent>
-                        <Grid container justifyContent="center" spacing={2}>
-                            <Grid item xs={9}>
-                                <TextField
-                                    defaultValue=""
-                                    value={response}
-                                    disabled
-                                    id="outlined-multiline-static"
-                                    multiline
-                                    minRows={8}
-                                    maxRows={17}
-                                    sx={{
-                                        overflow: 'auto',
-                                        width: '100%',
-                                        '& .MuiInputBase-input.Mui-disabled': {
-                                            WebkitTextFillColor: '#000000'
-                                        }
-                                    }}
-                                />
-                            </Grid>
-                            <Grid display="flex" justifyContent="space-around" item xs={9}>
-                                <CopyToClipboard
-                                    onCopy={() =>
-                                        dispatch(
-                                            openSnackbar({
-                                                open: true,
-                                                message: 'Copied to Clipboard',
-                                                variant: 'alert',
-                                                alert: {
-                                                    color: 'success'
-                                                },
-                                                close: false,
-                                                anchorOrigin: { vertical: 'top', horizontal: 'right' },
-                                                transition: 'SlideLeft'
-                                            })
-                                        )
-                                    }
-                                >
-                                    <IconButton
-                                        onClick={() => navigator.clipboard.writeText(response)}
-                                        color="inherit"
-                                        size="large"
-                                        sx={{ mr: 1.5 }}
-                                    >
-                                        <Tooltip title="Copy to Clipboard">
-                                            <ContentPasteIcon />
-                                        </Tooltip>
-                                    </IconButton>
-                                </CopyToClipboard>
-                                <IconButton onClick={editPrompt} color="inherit" size="large">
-                                    <Tooltip title="Edit Prompt">
-                                        <CreateIcon />
-                                    </Tooltip>
-                                </IconButton>
-                                <IconButton onClick={saveFavorite} color="inherit" size="large">
-                                    <Tooltip title="Set Favorite">
-                                        <StarIcon />
-                                    </Tooltip>
-                                </IconButton>
-                                <IconButton onClick={createDoc} color="inherit" size="large">
-                                    <Tooltip title="Create a Docx File">
-                                        <SaveAltIcon />
-                                    </Tooltip>
-                                </IconButton>
-                                <IconButton color="inherit" size="large">
-                                    <ChatIcon />
-                                </IconButton>
-                            </Grid>
-                        </Grid>
-                    </CardContent>
-                </Card>
+                <ResponseBox type="agent" />
                 <Grid>{responseLoading ? <BorderLinearProgress color="secondary" /> : <></>}</Grid>
             </Grid>
             <LargeDialog open={open} tasks={tasks} setOpen={setOpen} />

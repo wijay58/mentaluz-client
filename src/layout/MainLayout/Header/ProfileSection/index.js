@@ -149,7 +149,7 @@ const ProfileSection = () => {
         label={
           <>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              {userData ? <h3>{userData.firstname}</h3> : <></>}
+              {userData ? <Typography variant='h4' color='white'>{userData.firstname}</Typography> : <></>}
               <Divider orientation="vertical" variant='inset' flexItem sx={{ marginLeft: '15px', marginRight: '5px', borderWidth: '1px' }} />
               <IconSettings stroke={1.5} size="24px" color={theme.palette.primary.light} />
             </div>
