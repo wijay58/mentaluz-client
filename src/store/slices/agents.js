@@ -189,7 +189,7 @@ export function questionnaire(data) {
     return async () => {
         try {
             const response = await apiClient.post(`/questions/questionnaire`, { indices: data });
-            dispatch(slice.actions.getPromptSuccessQuestionnaire(response.data));
+            dispatch(slice.actions.getPromptSuccessQuestionnaire(response.data.longAnswer));
             return response.data;
         } catch (error) {
             dispatch(slice.actions.hasError(error));
