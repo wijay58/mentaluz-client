@@ -18,6 +18,8 @@ import reviews4 from "./assets/images/review/4.png"
 
 import Swiper from 'swiper/bundle';
 import Typed from "typed.js";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import 'swiper/css/bundle';
 
 import { useEffect } from "react";
@@ -25,6 +27,23 @@ import { Link } from "react-router-dom";
 
 const Landing = () => {
   useEffect(() => {
+    AOS.init({
+      disable: false,
+      startEvent: "DOMContentLoaded",
+      initClassName: "aos-init",
+      animatedClassName: "aos-animate",
+      useClassNames: false,
+      disableMutationObserver: false,
+      debounceDelay: 50,
+      throttleDelay: 99,
+      offset: 120,
+      delay: 50,
+      duration: 600,
+      easing: "cubic-bezier(0.77, 0, 0.175, 1)",
+      once: true,
+      mirror: false,
+      anchorPlacement: "top-bottom",
+    });
     const reviewCarousel = new Swiper(".review-carousel", {
       loop: false,
       freemode: true,

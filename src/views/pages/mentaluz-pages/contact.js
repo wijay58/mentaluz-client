@@ -2,13 +2,35 @@ import "./assets/css/plugins.css";
 import "./assets/css/style.css";
 import "./assets/js/plugins";
 import "./assets/js/main";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
 
 import logoImg from "./assets/images/logo.png"
 import blurry from "./assets/images/shapes/blurry-shape-4.svg"
 import screen1 from "./assets/images/screens/screen-1.jpg"
+import { useEffect } from "react";
 
 const Contact = () => {
+  useEffect(() => {
+    AOS.init({
+      disable: false,
+      startEvent: "DOMContentLoaded",
+      initClassName: "aos-init",
+      animatedClassName: "aos-animate",
+      useClassNames: false,
+      disableMutationObserver: false,
+      debounceDelay: 50,
+      throttleDelay: 99,
+      offset: 120,
+      delay: 50,
+      duration: 600,
+      easing: "cubic-bezier(0.77, 0, 0.175, 1)",
+      once: true,
+      mirror: false,
+      anchorPlacement: "top-bottom",
+    });
+  }, []);
   return (
     <body className="body" data-bs-theme="dark">
       <div class="wrapper d-flex flex-column justify-between">
