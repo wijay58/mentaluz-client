@@ -68,7 +68,7 @@ const Business = () => {
           </Grid>
         </CardContent>
       </MainCard>
-      <SubCard sx={{ boxShadow: theme.customShadows.primary, marginBottom: '1rem' }} contentSX={{ textAlign: 'left' }}>
+      {/* <SubCard sx={{ boxShadow: theme.customShadows.primary, marginBottom: '1rem' }} contentSX={{ textAlign: 'left' }}>
         <FormControl sx={{ width: '100%' }} variant="outlined">
           <InputLabel htmlFor="standard-adornment-Phone">Phone</InputLabel>
           <InputBase
@@ -86,64 +86,7 @@ const Business = () => {
             label="Phone"
           />
         </FormControl>
-      </SubCard>
-      <SubCard sx={{ boxShadow: theme.customShadows.primary, marginBottom: '1rem' }} contentSX={{ textAlign: 'left' }}>
-        <FormControl sx={{ width: '100%' }} variant="outlined">
-          <InputLabel htmlFor="standard-adornment-Phone">Phone</InputLabel>
-          <InputBase
-            sx={{ width: '100%' }}
-            id="standard-adornment-Phone"
-            endAdornment={
-              <InputAdornment sx={{ alignSelf: 'end' }} position="end">
-                <AnimateButton>
-                  <Button sx={{ width: '150px', marginBottom: '5px' }} variant="contained" size="small">
-                    Change
-                  </Button>
-                </AnimateButton>
-              </InputAdornment>
-            }
-            label="Phone"
-          />
-        </FormControl>
-      </SubCard>
-      <SubCard sx={{ boxShadow: theme.customShadows.primary, marginBottom: '1rem' }} contentSX={{ textAlign: 'left' }}>
-        <FormControl sx={{ width: '100%' }} variant="outlined">
-          <InputLabel htmlFor="standard-adornment-Phone">Phone</InputLabel>
-          <InputBase
-            sx={{ width: '100%' }}
-            id="standard-adornment-Phone"
-            endAdornment={
-              <InputAdornment sx={{ alignSelf: 'end' }} position="end">
-                <AnimateButton>
-                  <Button sx={{ width: '150px', marginBottom: '5px' }} variant="contained" size="small">
-                    Change
-                  </Button>
-                </AnimateButton>
-              </InputAdornment>
-            }
-            label="Phone"
-          />
-        </FormControl>
-      </SubCard>
-      <SubCard sx={{ boxShadow: theme.customShadows.primary, marginBottom: '1rem' }} contentSX={{ textAlign: 'left' }}>
-        <FormControl sx={{ width: '100%' }} variant="outlined">
-          <InputLabel htmlFor="standard-adornment-Phone">Phone</InputLabel>
-          <InputBase
-            sx={{ width: '100%' }}
-            id="standard-adornment-Phone"
-            endAdornment={
-              <InputAdornment sx={{ alignSelf: 'end' }} position="end">
-                <AnimateButton>
-                  <Button sx={{ width: '150px', marginBottom: '5px' }} variant="contained" size="small">
-                    Change
-                  </Button>
-                </AnimateButton>
-              </InputAdornment>
-            }
-            label="Phone"
-          />
-        </FormControl>
-      </SubCard>
+      </SubCard> */}
     </>
   );
 };

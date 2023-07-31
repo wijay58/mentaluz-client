@@ -54,7 +54,7 @@ const Personal = () => {
           {/* <Typography variant="h2" sx={{ marginTop: '20px', marginBottom: '10px' }}>
             Affiliate Link
           </Typography> */}
-          <Notifications />
+          {/* <Notifications /> */}
         </Grid>
         {/* <Grid item xs={12}>
           <SubCard sx={{ boxShadow: theme.customShadows.primary }} contentSX={{ textAlign: 'left' }}>
