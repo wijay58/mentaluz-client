@@ -21,11 +21,34 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 // import { AWSCognitoProvider as AuthProvider } from 'contexts/AWSCognitoContext';
 // import { JWTProvider as AuthProvider } from 'contexts/JWTContext';
 // import { Auth0Provider as AuthProvider } from 'contexts/Auth0Context';
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 // ==============================|| APP ||============================== //
 
 const App = () => {
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    AOS.init({
+      disable: false,
+      startEvent: "DOMContentLoaded",
+      initClassName: "aos-init",
+      animatedClassName: "aos-animate",
+      useClassNames: false,
+      disableMutationObserver: false,
+      debounceDelay: 50,
+      throttleDelay: 99,
+      offset: 120,
+      delay: 50,
+      duration: 600,
+      easing: "cubic-bezier(0.77, 0, 0.175, 1)",
+      once: true,
+      mirror: false,
+      anchorPlacement: "top-bottom",
+    });
+    AOS.refresh();
+  }, []);
 
   useEffect(() => {
     dispatch(getDashboard()).then(() => {
