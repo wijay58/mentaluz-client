@@ -28,23 +28,23 @@ import venoboxMin from "venobox";
 
 (function () {
   // 1. AOS initialization
-  AOS.init({
-    disable: false,
-    startEvent: "DOMContentLoaded",
-    initClassName: "aos-init",
-    animatedClassName: "aos-animate",
-    useClassNames: false,
-    disableMutationObserver: false,
-    debounceDelay: 50,
-    throttleDelay: 99,
-    offset: 120,
-    delay: 50,
-    duration: 600,
-    easing: "cubic-bezier(0.77, 0, 0.175, 1)",
-    once: true,
-    mirror: false,
-    anchorPlacement: "top-bottom",
-  });
+  // AOS.init({
+  //   disable: false,
+  //   startEvent: "DOMContentLoaded",
+  //   initClassName: "aos-init",
+  //   animatedClassName: "aos-animate",
+  //   useClassNames: false,
+  //   disableMutationObserver: false,
+  //   debounceDelay: 50,
+  //   throttleDelay: 99,
+  //   offset: 120,
+  //   delay: 50,
+  //   duration: 600,
+  //   easing: "cubic-bezier(0.77, 0, 0.175, 1)",
+  //   once: true,
+  //   mirror: false,
+  //   anchorPlacement: "top-bottom",
+  // });
 
   // 2. Typing text animation
   // const typedElements = document.querySelectorAll(".typed-animation");
