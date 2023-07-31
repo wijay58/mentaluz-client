@@ -30,6 +30,7 @@ const Privacy = () => {
       mirror: false,
       anchorPlacement: "top-bottom",
     });
+    AOS.refresh();
   }, []);
   return (
     <body className="body" data-bs-theme="dark">

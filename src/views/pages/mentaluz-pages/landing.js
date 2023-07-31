@@ -44,6 +44,7 @@ const Landing = () => {
       mirror: false,
       anchorPlacement: "top-bottom",
     });
+    AOS.refresh();
     const reviewCarousel = new Swiper(".review-carousel", {
       loop: false,
       freemode: true,
